@@ -1,0 +1,307 @@
+﻿
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font: 14px Georgia, serif;
+}
+
+#page-wrap {
+    margin: 15px auto;
+    color: #EBEFDE;
+}
+
+    #page-wrap > div {
+        border: 1px solid #999;
+        color: black;
+    }
+
+#navHeader {
+    background: #EBEFDE;
+    height: 35px;
+    padding: 10px;
+    margin-bottom: 5px;
+    border: solid 2px #999;
+    border-radius: 15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+}
+
+#main-content, #main-content-full, #main-content-fullHidden {
+    background: #EBEFDE;
+    border: solid 2px #999;
+    border-radius: 15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+}
+
+#secondary-one {
+    background: #EBEFDE;
+    border: solid 2px #999;
+    border-radius: 15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+}
+
+#secondary-two {
+    background: #EBEFDE;
+    border: solid 2px #999;
+    border-radius: 15px;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+}
+
+ul.navLinks {
+    margin: 5px 0px 5px 10px;
+    padding: 0px;
+    list-style: none;
+}
+
+    ul.navLinks li {
+        list-style: none;
+    }
+
+ul.nav {
+    font-size: 1.3em;
+    font-weight: 600;
+    margin: 15px 0 5px;
+    padding: 0;
+    display: block;
+    float: right;
+    text-align: right;
+    float: right;
+}
+
+    ul.nav li {
+        display: inline;
+        list-style: none;
+        padding-right: 15px;
+    }
+
+        ul.nav li a {
+            background: none;
+            color: #999;
+            text-decoration: none;
+        }
+
+            ul.nav li a:hover {
+                color: #333;
+                text-decoration: none;
+            }
+
+ul#homeMenu {
+    font-size: 1.3em;
+    font-weight: 600;
+    margin: 15px 0 5px;
+    padding: 0;
+    display: block;
+    text-align: center;
+}
+
+    ul#homeMenu li {
+        display: block;
+        list-style: none;
+        padding-left: 15px;
+    }
+
+        ul#homeMenu li a {
+            background: none;
+            color: #999;
+            text-decoration: none;
+        }
+
+            ul#homeMenu li a:hover {
+                color: #333;
+                text-decoration: none;
+            }
+
+button, input[type="submit"] {
+    padding: 3px;
+}
+
+#socialLoginForm {
+}
+#socialLoginList {
+}
+#socialLoginList p button {
+    display: block;
+    margin: 10px;
+}
+
+ol#olLoginForm {
+    list-style: none;
+}
+
+    ol#olLoginForm li {
+        margin: 5px 5px 5px 10px;
+    }
+
+        ol#olLoginForm li label {
+            display: inline-block;
+            width: 120px;
+        }
+
+div.clear {
+    clear: both;
+}
+
+#login {
+    display: block;
+    float: right;
+    font-size: .85em;
+    margin: 0 0 10px 15px;
+    text-align: right;
+}
+
+    #login a {
+        background-color: #d3dce0;
+        margin-left: 10px;
+        margin-right: 3px;
+        padding: 2px 3px;
+        text-decoration: none;
+    }
+
+        #login a.username {
+            background: none;
+            margin: 0;
+            padding: 0;
+            text-decoration: underline;
+        }
+
+    #login ul {
+        margin: 0;
+    }
+
+    #login li {
+        display: inline;
+        list-style: none;
+    }
+
+table td, th {
+    padding: 1px 7px;
+}
+
+.hiddenEditControls {
+    display: none;
+}
+
+.aMovePendingForEnvelope {
+    text-decoration: none;
+    color: black;
+}
+
+.divSearchContainer {
+    float: left;
+    margin-right: 10px;
+}
+
+.ulSearchAccount {
+    list-style: none;
+    text-decoration: none;
+}
+
+.divErrorMessage {
+    color: red;
+    font-weight: bold;
+    width: 250px;
+    margin: 5px auto 20px auto;
+}
+
+
+/*Slick Grid*/
+.contextMenu {
+    background: #e1efc7;
+    border: 1px solid gray;
+    padding: 2px;
+    display: inline-block;
+    min-width: 100px;
+    -moz-box-shadow: 2px 2px 2px silver;
+    -webkit-box-shadow: 2px 2px 2px silver;
+    z-index: 99999;
+}
+
+    .contextMenu li {
+        padding: 4px 4px 4px 14px;
+        list-style: none;
+        cursor: pointer;
+        background: url("/Content/images/arrow_right_peppermint.png") no-repeat center left;
+    }
+
+        .contextMenu li:hover {
+            background-color: white;
+        }
+
+.active { /*SlickGrid active cell*/
+    background: #e1efc7;
+}
+
+#divSlickTrans {
+    width: 700px;
+    height: 600px;
+}
+
+.imgIcons {
+    width: 24px;
+}
+
+.imgGridIcons {
+    width: 14px;
+}
+
+.tblInputForm {
+}
+
+    .tblInputForm td, th {
+        padding: 3px 5px;
+        margin: 0px;
+        border-collapse: collapse;
+    }
+
+
+/*AddPayCheck*/
+.divAddPaycheckRight {
+    text-align: right;
+}
+
+/*Envelopes/Index*/
+thead.fixedHeader {
+    text-align: center;
+}
+
+    thead.fixedHeader tr {
+        position: relative;
+    }
+
+    html > body thead.fixedHeader tr {
+        display: block;
+    }
+
+html > body tbody.scrollContent {
+    display: block;
+    height: 550px;
+    overflow: auto;
+    width: 100%;
+}
+
+.colPostedDate {
+    width: 80px;
+}
+
+.colName {
+    width: 300px;
+}
+
+.colAmount {
+    width: 80px;
+}
+
+.colPending {
+    width: 80px;
+}
+
+.aMovePendingForTransaction {
+    text-decoration: none;
+    color: black;
+}

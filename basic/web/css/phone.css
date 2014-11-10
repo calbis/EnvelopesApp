@@ -1,0 +1,19 @@
+body {
+    background: #333;
+    font-size: large;
+}
+
+#page-wrap {
+    width: 550px;
+}
+/*#page-wrap:before { content: "phone Layout"; }*/
+#secondary-two {
+    display: none;
+}
+
+#main-content-full {
+    display: none;
+}
+
+#main-content-fullHidden {
+}
