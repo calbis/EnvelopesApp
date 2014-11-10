@@ -1,0 +1,1 @@
+This is a YII application utilizing the envelope method to balance your accounts/budget.
