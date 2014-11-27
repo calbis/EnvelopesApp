@@ -4,28 +4,28 @@ namespace app\controllers;
 
 use yii\web\Controller;
 use yii\data\Pagination;
-use app\models\Country;
+use app\models\Account;
 
-class CountryController extends Controller
+class AccountController extends Controller
 {
     public $layout = 'main';
     
     public function actionIndex()
     {
-        $query = Country::find();
+        $query = Account::find();
 
         $pagination = new Pagination([
             'defaultPageSize' => 5,
             'totalCount' => $query->count(),
         ]);
 
-        $countries = $query->orderBy('name')
+        $accounts = $query->orderBy('name')
             ->offset($pagination->offset)
             ->limit($pagination->limit)
             ->all();
 
         return $this->render('index', [
-            'countries' => $countries,
+            'accounts' => $accounts,
             'pagination' => $pagination,
         ]);
     }

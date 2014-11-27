@@ -3,13 +3,17 @@
 $this->title = 'My Yii Application';
 ?>
 
-<div id="main-content">
+<?php $this->beginBlock('main-content'); ?>
+
     <ul>
         <li><a href="./index.php?r=country/index">./index.php?r=country/index</a></li>
         <li><a href="./index.php?r=gii">./index.php?r=gii</a></li>
     </ul>
-</div>
-<div id="secondary-one">
+
+<?php $this->endBlock(); ?>
+
+<?php $this->beginBlock('secondary-one'); ?>
+
     secondary 
     one content
     
@@ -19,4 +23,4 @@ $this->title = 'My Yii Application';
     f
     adsf
     
-</div>
+<?php $this->endBlock(); ?>

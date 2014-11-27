@@ -18,9 +18,9 @@ body {
         color: black;
     }
 
-#navHeader {
+#header {
     background: #EBEFDE;
-    height: 35px;
+    height: 50px;
     padding: 10px;
     margin-bottom: 5px;
     border: solid 2px #999;
@@ -53,17 +53,18 @@ body {
     -webkit-border-radius: 15px;
 }
 
+
 ul.navLinks {
     margin: 5px 0px 5px 10px;
     padding: 0px;
     list-style: none;
 }
 
-    ul.navLinks li {
-        list-style: none;
-    }
+ul.navLinks li {
+    list-style: none;
+}
 
-ul.nav {
+ul#menu {
     font-size: 1.3em;
     font-weight: 600;
     margin: 15px 0 5px;
@@ -74,48 +75,23 @@ ul.nav {
     float: right;
 }
 
-    ul.nav li {
-        display: inline;
-        list-style: none;
-        padding-right: 15px;
-    }
-
-        ul.nav li a {
-            background: none;
-            color: #999;
-            text-decoration: none;
-        }
-
-            ul.nav li a:hover {
-                color: #333;
-                text-decoration: none;
-            }
-
-ul#homeMenu {
-    font-size: 1.3em;
-    font-weight: 600;
-    margin: 15px 0 5px;
-    padding: 0;
-    display: block;
-    text-align: center;
+ul#menu li {
+    display: inline;
+    list-style: none;
+    padding-right: 15px;
 }
 
-    ul#homeMenu li {
-        display: block;
-        list-style: none;
-        padding-left: 15px;
-    }
+ul#menu li a {
+    background: none;
+    color: #999;
+    text-decoration: none;
+}
 
-        ul#homeMenu li a {
-            background: none;
-            color: #999;
-            text-decoration: none;
-        }
+ul#menu li a:hover {
+    color: #333;
+    text-decoration: none;
+}
 
-            ul#homeMenu li a:hover {
-                color: #333;
-                text-decoration: none;
-            }
 
 button, input[type="submit"] {
     padding: 3px;
@@ -134,14 +110,14 @@ ol#olLoginForm {
     list-style: none;
 }
 
-    ol#olLoginForm li {
-        margin: 5px 5px 5px 10px;
-    }
+ol#olLoginForm li {
+    margin: 5px 5px 5px 10px;
+}
 
-        ol#olLoginForm li label {
-            display: inline-block;
-            width: 120px;
-        }
+ol#olLoginForm li label {
+    display: inline-block;
+    width: 120px;
+}
 
 div.clear {
     clear: both;
@@ -155,29 +131,29 @@ div.clear {
     text-align: right;
 }
 
-    #login a {
-        background-color: #d3dce0;
-        margin-left: 10px;
-        margin-right: 3px;
-        padding: 2px 3px;
-        text-decoration: none;
-    }
+#login a {
+    background-color: #d3dce0;
+    margin-left: 10px;
+    margin-right: 3px;
+    padding: 2px 3px;
+    text-decoration: none;
+}
 
-        #login a.username {
-            background: none;
-            margin: 0;
-            padding: 0;
-            text-decoration: underline;
-        }
+#login a.username {
+    background: none;
+    margin: 0;
+    padding: 0;
+    text-decoration: underline;
+}
 
-    #login ul {
-        margin: 0;
-    }
+#login ul {
+    margin: 0;
+}
 
-    #login li {
-        display: inline;
-        list-style: none;
-    }
+#login li {
+    display: inline;
+    list-style: none;
+}
 
 table td, th {
     padding: 1px 7px;
@@ -215,23 +191,23 @@ table td, th {
     background: #e1efc7;
     border: 1px solid gray;
     padding: 2px;
-    display: inline-block;
+    display: none;
     min-width: 100px;
     -moz-box-shadow: 2px 2px 2px silver;
     -webkit-box-shadow: 2px 2px 2px silver;
     z-index: 99999;
 }
 
-    .contextMenu li {
-        padding: 4px 4px 4px 14px;
-        list-style: none;
-        cursor: pointer;
-        background: url("/Content/images/arrow_right_peppermint.png") no-repeat center left;
-    }
+.contextMenu li {
+    padding: 4px 4px 4px 14px;
+    list-style: none;
+    cursor: pointer;
+    background: url("/Content/images/arrow_right_peppermint.png") no-repeat center left;
+}
 
-        .contextMenu li:hover {
-            background-color: white;
-        }
+.contextMenu li:hover {
+    background-color: white;
+}
 
 .active { /*SlickGrid active cell*/
     background: #e1efc7;
@@ -253,11 +229,11 @@ table td, th {
 .tblInputForm {
 }
 
-    .tblInputForm td, th {
-        padding: 3px 5px;
-        margin: 0px;
-        border-collapse: collapse;
-    }
+.tblInputForm td, th {
+    padding: 3px 5px;
+    margin: 0px;
+    border-collapse: collapse;
+}
 
 
 /*AddPayCheck*/
@@ -270,13 +246,13 @@ thead.fixedHeader {
     text-align: center;
 }
 
-    thead.fixedHeader tr {
-        position: relative;
-    }
+thead.fixedHeader tr {
+    position: relative;
+}
 
-    html > body thead.fixedHeader tr {
-        display: block;
-    }
+html > body thead.fixedHeader tr {
+    display: block;
+}
 
 html > body tbody.scrollContent {
     display: block;
