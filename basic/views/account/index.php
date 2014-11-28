@@ -8,8 +8,8 @@ use yii\widgets\LinkPager;
 <ul>
 <?php foreach ($accounts as $account): ?>
     <li>
-        <?= Html::encode("{$account->name} ({$account->code})") ?>:
-        <?= $account->population ?>
+        <?= Html::encode("{$account->Name} ({$account->Id})") ?>:
+        <?= $account->ExternalTotal ?>
     </li>
 <?php endforeach; ?>
 </ul>
