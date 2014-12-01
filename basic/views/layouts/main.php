@@ -18,11 +18,6 @@ AppAsset::register($this);
     <head>
         <meta charset="<?= Yii::$app->charset ?>"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel='stylesheet' href="~/css/colors.css" />
-        <link rel='stylesheet' media='screen and (max-width: 600px)' href='~/css/phone.css' />
-        <link rel='stylesheet' media='screen and (min-width: 601px) and (max-width: 900px)' href='~/css/tablet.css' />
-        <link rel='stylesheet' media='screen and (min-width: 901px) and (max-width: 1200px)' href='~/css/medium.css' />
-        <link rel='stylesheet' media='screen and (min-width: 1201px)' href='~/css/wide.css' />
 
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>

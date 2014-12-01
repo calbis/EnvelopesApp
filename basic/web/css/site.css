@@ -13,20 +13,31 @@ body {
     color: #EBEFDE;
 }
 
-    #page-wrap > div {
-        border: 1px solid #999;
-        color: black;
-    }
+#page-wrap > div {
+    border: 1px solid #999;
+    color: black;
+}
 
 #header {
     background: #EBEFDE;
-    height: 50px;
+    height: 35px;
     padding: 10px;
     margin-bottom: 5px;
     border: solid 2px #999;
     border-radius: 15px;
     -moz-border-radius: 15px;
     -webkit-border-radius: 15px;
+}
+
+footer.footer {
+    display: block;
+    clear: both;
+}
+footer.footer .pull-left {
+    float: left !important;
+}
+footer.footer .pull-right {
+    float: right !important;
 }
 
 #main-content, #main-content-full, #main-content-fullHidden {

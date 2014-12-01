@@ -19,10 +19,10 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
-/*        'css/phone.css',
+        'css/phone.css',
         'css/tablet.css',
         'css/medium.css',
-*/        'css/wide.css',
+        'css/wide.css',
         'css/colors.css',
     ];
     public $js = [
@@ -30,6 +30,6 @@ class AppAsset extends AssetBundle
     ];
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
+    //    'yii\bootstrap\BootstrapAsset',
     ];
 }
