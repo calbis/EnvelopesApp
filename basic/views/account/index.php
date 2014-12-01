@@ -16,11 +16,11 @@ use yii\widgets\LinkPager;
     <h2>Accounts</h2>
 </div>
 <div class="editControlSwitch" style="float: right;">
-    <img alt="Add/Edit/Delete Accounts" title="Add/Edit/Delete Accounts" class="imgIcons" style="text-align: right;" src="~/Images/pencil.png" />
+    <img alt="Add/Edit/Delete Accounts" title="Add/Edit/Delete Accounts" class="imgIcons" style="text-align: right;" src="Images/pencil.png" />
 </div>
 <div style="float: right; margin-left: 40px; margin-right: 40px;">
     <a class="showDialog" title="Expenses Graph" href="@Url.Action("_Chart", "Accounts")">
-       <img alt="Expense Graph" title="Expense Graphs" class="imgIcons" style="text-align: right;" src="~/Images/pie.png" /></a>
+       <img alt="Expense Graph" title="Expense Graphs" class="imgIcons" style="text-align: right;" src="Images/pie.png" /></a>
 </div>
 <div class="clear"></div>
 <p class="editControls hiddenEditControls">
