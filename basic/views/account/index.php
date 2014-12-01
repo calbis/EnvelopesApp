@@ -52,10 +52,10 @@ use yii\widgets\LinkPager;
                 <a class="<?= $account->Color ?>" href="./index.php?r=envelope/index"><?= $account->Name ?></a>
             </td>
             <td class="editControls">
-                <?= $account->AccountSum ?>
+                <?= $account->vwAccountSum->AccountSum ?>
             </td>
             <td class="editControls">
-                <?= $account->AccountPending ?>
+                <?= $account->vwAccountSum->AccountPending ?>
             </td>
         </tr>
     <?php endforeach; ?>
