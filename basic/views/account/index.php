@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Html::a('Edit', ['update', 'id' => $account->Id], ['class' => 'showDialog', 'title' => 'Edit Account']) ?>
     <?= Html::a('Details', ['view', 'id' => $account->Id], ['class' => 'showDialog', 'title' => 'View Account']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $account->Id], [
-            'class' => 'showDialog',
+            'class' => 'linkConfirm',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',

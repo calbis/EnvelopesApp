@@ -38,7 +38,7 @@
 
     jQuery.expr[':'].Contains = function (a, i, m) {
         return jQuery(a).text().toUpperCase()
-        .indexOf(m[3].toUpperCase()) >= 0;
+                .indexOf(m[3].toUpperCase()) >= 0;
     };
     /*Wnd Envelopes/Index*/
 
@@ -68,9 +68,9 @@
             $.get($(this).attr("href"), function (data) {
                 ShowDialog(title, data);
             })
-            .fail(function () {
-                $(this).click();
-            });
+                    .fail(function () {
+                        $(this).click();
+                    });
 
         }
     });
@@ -84,6 +84,21 @@
         $(".datePicker").datepicker();
     }
     /*END Dialog*/
+
+
+    /*data-confirm/data-method handlers*/
+    $('a.linkConfirm').click(function (event) {
+        var confirmPrompt = event.currentTarget.attributes['data-confirm'].value;
+        event.preventDefault();
+        if (confirm(confirmPrompt)) {
+            $(event.currentTarget).unbind('click');
+            event.currentTarget.click();
+        }
+
+    });
+    /*END data-confirm/data-method handlers*/
+
+
 
     /*Width based classes*/
     function adjustStyle(width) {
@@ -168,9 +183,9 @@
             $.get(href, function (data) {
                 ShowDialog(action, data);
             })
-            .fail(function () {
-                window.location = href;
-            });
+                    .fail(function () {
+                        window.location = href;
+                    });
         }
         else {
             window.location = href;
