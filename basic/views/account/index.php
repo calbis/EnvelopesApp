@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\i18n\Formatter;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AccountSearch */
@@ -45,7 +46,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <th class="editControls">Pending
         </th>
     </tr>
-
+    
+    <?php $sum = 0.0; $pending = 0.0; ?>
     <?php foreach ($accounts as $account): ?>
         <tr>
             <td class="editControls hiddenEditControls">                
@@ -69,6 +71,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= ($account->vwAccountSum !== null ? $account->vwAccountSum->AccountPending : '0.00') ?>
             </td>
         </tr>
+        <?php 
+        if($account->vwAccountSum !== null) {
+            $sum += $account->vwAccountSum->AccountSum;
+            $pending += $account->vwAccountSum->AccountPending;
+        }
+        ?>
     <?php endforeach; ?>
 </table>
 <?php $this->endBlock(); ?>
@@ -81,15 +89,15 @@ $this->params['breadcrumbs'][] = $this->title;
         <tbody>
             <tr>
                 <td>Total Amount</td>
-                <td>0.00</td>
+                <td><?= $sum ?></td>
             </tr>
             <tr>
                 <td>Total Pending</td>
-                <td>0.00</td>
+                <td><?= $pending ?></td>
             </tr>
             <tr>
                 <td>Grand Total</td>
-                <td>0.00</td>
+                <td><?= $sum + $pending ?></td>
             </tr>
         </tbody>
         <tfoot>
