@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <div class="clear"></div>
 <p class="editControls hiddenEditControls">
-    <?= Html::a('Create Account', ['create'], ['class' => 'btn btn-success showDialog']) ?>
+    <?= Html::a('Create Account', ['create'], ['class' => 'btn btn-success showDialog', 'title' => 'Create Account']) ?>
 </p>
 <table style="font-size: larger;">
     <tr>

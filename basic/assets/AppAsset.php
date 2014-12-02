@@ -24,12 +24,15 @@ class AppAsset extends AssetBundle
         'css/medium.css',
         'css/wide.css',
         'css/colors.css',
+        'jquery-ui/css/smoothness/jquery-ui-1.10.0.custom.css',
     ];
     public $js = [
+        'Scripts/jquery-1.9.1.min.js',
+        'jquery-ui/js/jquery-ui-1.10.0.custom.min.js',
         'Scripts/main.js',
     ];
     public $depends = [
-        'yii\web\YiiAsset',
+//        'yii\web\YiiAsset',
 //        'yii\bootstrap\BootstrapAsset',
     ];
 }

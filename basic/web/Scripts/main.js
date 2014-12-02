@@ -181,29 +181,29 @@
         return id.substring(3);
     }
 
-    $('tr.useContextMenu').contextMenu('myMenu1', {
-        bindings: {
-            'cmMovePending': function (t) {
-                ContextMenuAction("MovePending", ParseTrId(t.id), false);
-            },
-            'cmEdit': function (t) {
-                ContextMenuAction("Edit", ParseTrId(t.id), true);
-            },
-            'cmDetails': function (t) {
-                ContextMenuAction("Details", ParseTrId(t.id), true);
-            },
-            'cmDelete': function (t) {
-                ContextMenuAction("Delete", ParseTrId(t.id), true);
-            }
-        },
-        onShowMenu: function (e, menu) {
-            var id = $(e.currentTarget).attr("id");
-            if ($("#" + id + " td.colPending").html() == 0) {
-                $('#cmMovePending', menu).remove();
-            }
-
-            return menu;
-        }
-    });
+//    $('tr.useContextMenu').contextMenu('myMenu1', {
+//        bindings: {
+//            'cmMovePending': function (t) {
+//                ContextMenuAction("MovePending", ParseTrId(t.id), false);
+//            },
+//            'cmEdit': function (t) {
+//                ContextMenuAction("Edit", ParseTrId(t.id), true);
+//            },
+//            'cmDetails': function (t) {
+//                ContextMenuAction("Details", ParseTrId(t.id), true);
+//            },
+//            'cmDelete': function (t) {
+//                ContextMenuAction("Delete", ParseTrId(t.id), true);
+//            }
+//        },
+//        onShowMenu: function (e, menu) {
+//            var id = $(e.currentTarget).attr("id");
+//            if ($("#" + id + " td.colPending").html() == 0) {
+//                $('#cmMovePending', menu).remove();
+//            }
+//
+//            return menu;
+//        }
+//    });
     /*End Context Menu*/
 });

@@ -82,6 +82,7 @@ AppAsset::register($this);
                     Delete</li>
             </ul>
         </div>
+        <div id="dialog" title=""></div>
     </body>
 </html>
 <?php $this->endPage() ?>

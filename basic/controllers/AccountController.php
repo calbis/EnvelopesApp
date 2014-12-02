@@ -49,7 +49,7 @@ class AccountController extends Controller {
             'defaultPageSize' => 100,
             'totalCount' => $query->count(),
         ]);
-        
+
         $accounts = $query->select('Id, Name, Color, ExternalTotal')
                 ->where([
                     'IsDeleted' => 0,
@@ -90,6 +90,9 @@ class AccountController extends Controller {
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         } else {
+            if (Yii::$app->request->getIsAjax()) {
+                $this->layout = 'dialog';
+            }
             return $this->render('create', [
                         'model' => $model,
             ]);
