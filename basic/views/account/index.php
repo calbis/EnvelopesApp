@@ -62,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>                
             </td>
             <td class="<?= $account->Color ?>">
-                <a class="<?= $account->Color ?>" href="./index.php?r=envelope/index"><?= $account->Name ?></a>
+                <?= Html::a($account->Name, ['envelope/index', 'accountId' => $account->Id], ['class' => $account->Color, 'title' => $account->Name]) ?>
             </td>
             <td class="editControls">
                 <?= ($account->vwAccountSum !== null ? $account->vwAccountSum->AccountSum : '0.00') ?>

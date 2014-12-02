@@ -3,20 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Account;
-//use app\models\AccountSearch;
-use yii\data\Pagination;
+use app\models\Envelope;
+use app\models\EnvelopeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\helpers\BaseVarDumper;
 
 /**
- * AccountController implements the CRUD actions for Account model.
+ * EnvelopeController implements the CRUD actions for Envelope model.
  */
-class AccountController extends Controller {
-
-    public $layout = 'main';
+class EnvelopeController extends Controller {
 
     public function behaviors() {
         return [
@@ -30,46 +26,44 @@ class AccountController extends Controller {
     }
 
     /**
-     * Lists all Account models.
+     * Lists all Envelope models.
      * @return mixed
      */
-    public function actionIndex() {
+    public function actionSearchIndex() {
+        $searchModel = new EnvelopeSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-//        $searchModel = new AccountSearch();
-//        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-//
-//        return $this->render('index', [
-//                    'searchModel' => $searchModel,
-//                    'dataProvider' => $dataProvider,
-//        ]);
-
-        $query = Account::find();
-
-        $pagination = new Pagination([
-            'defaultPageSize' => 100,
-            'totalCount' => $query->count(),
+        return $this->render('index', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
         ]);
+    }
 
-        $accounts = $query->select('Id, Name, Color, ExternalTotal')
+    public function actionIndex($accountId) {
+        $account = AccountController::findModelPlus($accountId);
+
+        $query = Envelope::find();
+
+        $envelopes = $query->select('Id, Name, Color')
                 ->where([
                     'IsDeleted' => 0,
                     'IsClosed' => 0,
+                    'AccountId' => $accountId,
                 ])
-                ->orderBy('name')
-                ->offset($pagination->offset)
-                ->limit($pagination->limit)
-                ->joinWith('vwAccountSum')
+                ->orderBy('Name')
+                ->limit(100)
+                //->joinWith('vwAccountSum')
                 ->all();
 //        BaseVarDumper::dump($accounts);
 
         return $this->render('index', [
-                    'accounts' => $accounts,
-                    'pagination' => $pagination,
+                    'envelopes' => $envelopes,
+                    'account' => $account,
         ]);
     }
 
     /**
-     * Displays a single Account model.
+     * Displays a single Envelope model.
      * @param integer $id
      * @return mixed
      */
@@ -77,18 +71,20 @@ class AccountController extends Controller {
         if (Yii::$app->request->getIsAjax()) {
             $this->layout = 'dialog';
         }
+
         return $this->render('view', [
                     'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Account model.
+     * Creates a new Envelope model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate() {
-        $model = new Account();
+    public function actionCreate($accountId) {
+        $model = new Envelope();
+        $model->AccountId = $accountId;
         $model->CreatedBy = 1;
         $model->ModifiedBy = 1;
         $currDate = date('Y-m-d H:i:s');
@@ -96,13 +92,14 @@ class AccountController extends Controller {
         $model->ModifiedOn = $currDate;
         $model->IsClosed = 0;
         $model->IsDeleted = 0;
-        
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['index', 'accountId' => $model->AccountId]);
         } else {
             if (Yii::$app->request->getIsAjax()) {
                 $this->layout = 'dialog';
             }
+
             return $this->render('create', [
                         'model' => $model,
             ]);
@@ -110,7 +107,7 @@ class AccountController extends Controller {
     }
 
     /**
-     * Updates an existing Account model.
+     * Updates an existing Envelope model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -119,11 +116,12 @@ class AccountController extends Controller {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['index', 'accountId' => $model->AccountId]);
         } else {
             if (Yii::$app->request->getIsAjax()) {
                 $this->layout = 'dialog';
             }
+
             return $this->render('update', [
                         'model' => $model,
             ]);
@@ -131,7 +129,7 @@ class AccountController extends Controller {
     }
 
     /**
-     * Deletes an existing Account model.
+     * Deletes an existing Envelope model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -139,35 +137,22 @@ class AccountController extends Controller {
     public function actionDelete($id) {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', accountId => $id]);
     }
 
     /**
-     * Finds the Account model based on its primary key value.
+     * Finds the Envelope model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Account the loaded model
+     * @return Envelope the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id) {
-        if (($model = Account::findOne($id)) !== null) {
+        if (($model = Envelope::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-    }
-
-    public function findModelPlus($id) {
-        $query = Account::find();
-
-        $account = $query->select('Id, Name, Color, ExternalTotal')
-                ->where([
-                    'Id' => $id,
-                ])
-                ->joinWith('vwAccountSum')
-                ->one();
-        
-        return $account;
     }
 
 }
