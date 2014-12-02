@@ -19,7 +19,7 @@ class EnvelopeController extends Controller {
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post'],
+                    'delete' => ['get'],
                 ],
             ],
         ];
@@ -135,9 +135,10 @@ class EnvelopeController extends Controller {
      * @return mixed
      */
     public function actionDelete($id) {
+        $accountId = $this->findModel($id)->AccountId;
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index', accountId => $id]);
+        return $this->redirect(['index', 'accountId' => $accountId]);
     }
 
     /**
