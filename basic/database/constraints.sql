@@ -70,3 +70,10 @@ ALTER TABLE `userFilter`
   ADD CONSTRAINT `FK_FiltersModifiedBy_ToUsersId` FOREIGN KEY (`ModifiedBy`) REFERENCES `user` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 
+
+--
+-- Constraints for view `vw_account_sum`
+--
+ALTER VIEW `vw_account_sum`
+  ADD CONSTRAINT `FK_VwAccountSum_AccountId_ToAccountId` FOREIGN KEY (`AccountId`) REFERENCES `account` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+

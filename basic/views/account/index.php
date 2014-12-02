@@ -1,8 +1,18 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\LinkPager;
+use yii\grid\GridView;
+
+/* @var $this yii\web\View */
+/* @var $searchModel app\models\AccountSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = 'Accounts';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
+
+
+
 <?php $this->beginBlock('main-content'); ?>
 <!--
 @if (ViewBag.ErrorMessage != null)
@@ -12,19 +22,18 @@ use yii\widgets\LinkPager;
 </div>
 }
 -->
-<div>
-    <h2>Accounts</h2>
-</div>
+
+<h2><?= Html::encode($this->title) ?></h2>
 <div class="editControlSwitch" style="float: right;">
     <img alt="Add/Edit/Delete Accounts" title="Add/Edit/Delete Accounts" class="imgIcons" style="text-align: right;" src="Images/pencil.png" />
 </div>
 <div style="float: right; margin-left: 40px; margin-right: 40px;">
-    <a class="showDialog" title="Expenses Graph" href="@Url.Action("_Chart", "Accounts")">
+    <a class="showDialog" title="Expenses Graph" href="@Url.Action(\"_Chart\", \"Accounts\")">
        <img alt="Expense Graph" title="Expense Graphs" class="imgIcons" style="text-align: right;" src="Images/pie.png" /></a>
 </div>
 <div class="clear"></div>
 <p class="editControls hiddenEditControls">
-    @Html.ActionLink("Create New", "Create", "Accounts", new { @class = "showDialog", title = "Create an Account" })
+    <?= Html::a('Create Account', ['create'], ['class' => 'btn btn-success showDialog']) ?>
 </p>
 <table style="font-size: larger;">
     <tr>
@@ -39,33 +48,32 @@ use yii\widgets\LinkPager;
 
     <?php foreach ($accounts as $account): ?>
         <tr>
-            <td class="editControls hiddenEditControls">
-                Controls
-                <!--
-                @Html.ActionLink("Edit", "Edit", new { id = item.AccountId }, new { @class = "showDialog", title = "Edit Account" }) |
-                @Html.ActionLink("Details", "Details", new { id = item.AccountId }, new { @class = "showDialog", title = "Account Details" }) |
-                <a href="@Url.Action("Index", "UserAccounts", new { accountId = item.AccountId })">Share</a> |
-                @Html.ActionLink("Delete", "Delete", new { id = item.AccountId }, new { @class = "showDialog", title = "Delete Account" })
-                -->                 
+            <td class="editControls hiddenEditControls">                
+    <?= Html::a('Edit', ['update', 'id' => $account->Id], ['class' => 'showDialog']) ?>
+    <?= Html::a('Details', ['view', 'id' => $account->Id], ['class' => 'showDialog']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $account->Id], [
+            'class' => 'showDialog',
+            'data' => [
+                'confirm' => 'Are you sure you want to delete this item?',
+                'method' => 'post',
+            ],
+        ]) ?>                
             </td>
             <td class="<?= $account->Color ?>">
                 <a class="<?= $account->Color ?>" href="./index.php?r=envelope/index"><?= $account->Name ?></a>
             </td>
             <td class="editControls">
-                <?= $account->vwAccountSum->AccountSum ?>
+                <?= ($account->vwAccountSum !== null ? $account->vwAccountSum->AccountSum : '0.00') ?>
             </td>
             <td class="editControls">
-                <?= $account->vwAccountSum->AccountPending ?>
+                <?= ($account->vwAccountSum !== null ? $account->vwAccountSum->AccountPending : '0.00') ?>
             </td>
         </tr>
     <?php endforeach; ?>
 </table>
-
-
 <?php $this->endBlock(); ?>
 
 <?php $this->beginBlock('secondary-one'); ?>
-
 <div style="border: 1px solid black; padding: 5px;">
     <table>
         <thead>
@@ -88,5 +96,4 @@ use yii\widgets\LinkPager;
         </tfoot>
     </table>
 </div>
-
 <?php $this->endBlock(); ?>
