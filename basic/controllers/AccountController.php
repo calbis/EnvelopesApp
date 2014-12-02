@@ -74,6 +74,9 @@ class AccountController extends Controller {
      * @return mixed
      */
     public function actionView($id) {
+        if (Yii::$app->request->getIsAjax()) {
+            $this->layout = 'dialog';
+        }
         return $this->render('view', [
                     'model' => $this->findModel($id),
         ]);
@@ -111,6 +114,9 @@ class AccountController extends Controller {
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         } else {
+            if (Yii::$app->request->getIsAjax()) {
+                $this->layout = 'dialog';
+            }
             return $this->render('update', [
                         'model' => $model,
             ]);

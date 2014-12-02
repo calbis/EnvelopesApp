@@ -49,8 +49,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php foreach ($accounts as $account): ?>
         <tr>
             <td class="editControls hiddenEditControls">                
-    <?= Html::a('Edit', ['update', 'id' => $account->Id], ['class' => 'showDialog']) ?>
-    <?= Html::a('Details', ['view', 'id' => $account->Id], ['class' => 'showDialog']) ?>
+    <?= Html::a('Edit', ['update', 'id' => $account->Id], ['class' => 'showDialog', 'title' => 'Edit Account']) ?>
+    <?= Html::a('Details', ['view', 'id' => $account->Id], ['class' => 'showDialog', 'title' => 'View Account']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $account->Id], [
             'class' => 'showDialog',
             'data' => [

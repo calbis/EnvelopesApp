@@ -10,6 +10,7 @@ $this->title = $model->Name;
 $this->params['breadcrumbs'][] = ['label' => 'Accounts', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?php $this->beginBlock('main-content'); ?>
 <div class="account-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -43,3 +44,4 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
 </div>
+<?php $this->endBlock(); ?>
