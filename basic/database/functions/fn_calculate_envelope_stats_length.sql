@@ -7,51 +7,40 @@ Create Function fn_calculate_envelope_stats_length
 	envelopeId int
 )
 Returns Decimal(19, 2)
-Not Deterministic
 Begin
-    Declare lengt int;
-    Select U.StatsLength
-    Into lengt
-    From Users U
-    Where U.Id = 1;
+    Select StatsLength
+    Into @length
+    From `user`
+    Where Id = 1
+    Limit 1;
 
-    Declare display varchar(1);
-    Select U.StatsDisplay
-    Into display
-    From Users U
-    Where U.Id = 1;
+    Select DATE_ADD(CURDATE(), INTERVAL @length * -1 MONTH) Into @date;
 
-    Declare dat date;
-    Select Case When display = 'm' Then DATEADD (MONTH, lengt * -1, GETDATE()) Else DATEADD (DAY, lengt * -7, GETDATE()) End Into dat;
+    Select fn_calculate_envelope_stats_cost(envelopeId) Into @statsCost;
 
---     Declare statsCost decimal(19, 2);
---     --Select fnCalculateEnvelopeStatsCost(envelopeId) Into statsCost;
---     Select 100 Into statsCost;
--- 
-     Declare retVal decimal(19, 2);
-Set retVal = 3.55;
--- 
---     Select retVal = 	
---     (
---             Select Case When statsCost = 0 Then
---                     0
---             Else
---             (
---                     Select Top 1
---                     ISNULL
---                     (
---                             (
---                                     Select (UE.PendingSum + UE.AmountSum) / statsCost
---                             )
---                     , 0.0)
---                     From vwUserEnvelopes UE
---                     Where UE.EnvelopeId = envelopeId
---                             And UE.UserId = userId
---             )
---             End
---     );
--- 
-     RETURN retVal;
+    Select Case When @statsCost = 0 Then
+        0.00
+    Else
+    (
+        Select
+            IFNULL
+            (
+                (
+                    Select (Sum(T.Amount) + Sum(T.Pending)) / @statsCost
+                )
+            , 0.00)
+        From `envelope` E
+        Inner Join `transaction` T
+            On E.Id = T.EnvelopeId
+                And E.Id = envelopeId
+                And T.IsDeleted = 0
+        Group By E.Id
+    )
+    End
+    Into @retVal;
+
+
+    RETURN @retVal;
 End $$
 
 Delimiter ;
