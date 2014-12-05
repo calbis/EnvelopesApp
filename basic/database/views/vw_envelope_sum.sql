@@ -2,9 +2,9 @@ Create Or Replace View vw_envelope_sum
     As Select E.Id EnvelopeId
         , Case When A.IsCash= 1 Then 0.00 Else Sum(IFNULL(Tran.Amount, 0.0)) End EnvelopeSum
         , Case When A.IsCash= 1 Then 0.00 Else Sum(IFNULL(Tran.Pending, 0.0)) End EnvelopePending
-        , fnCalculateEnvelopeStatsCost(E.Id) as StatsCost
-        , fnCalculateEnvelopeStatsLength(E.Id) As TimeLeft
-        , fnCalculateEnvelopeGoalDeposit(E.Id) as GoalDeposit
+        , fn_calculate_envelope_stats_cost(E.Id) as StatsCost
+        , fn_calculate_envelope_stats_length(E.Id) As TimeLeft
+        , fn_calculate_envelope_goal_deposit(E.Id) as GoalDeposit
     From `account` A
     Inner Join `envelope` E
         On A.Id = E.AccountId

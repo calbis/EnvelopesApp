@@ -1,44 +1,39 @@
-﻿CREATE FUNCTION [dbo].[fnCalculateEnvelopeGoalDeposit]
+Drop Function If Exists fn_calculate_envelope_goal_deposit;
+
+Delimiter $$
+
+
+CREATE FUNCTION fn_calculate_envelope_goal_deposit
 (
-	@envelopeId int,
-	@userId int
+	envelopeId int
 )
 RETURNS Decimal(19, 2)
-AS
 BEGIN
-	Declare @goal int;
-	Select @goal = 
-	(
-		Select U.GoalLength
-		From Users U
-		Where U.Id = @userId
-	);
-
-
-	Declare @retVal decimal(19, 2);
+    Select U.GoalLength
+    Into @goal
+    From `user` U
+    Where U.Id = 1;
 	
-	Select @retVal = 	
-	(
-		Select Top 1
-		ISNULL
-		(
-			(
-				Select (@goal * (dbo.fnCalculateEnvelopeStatsCost(@envelopeId, @userId)) - UE.AmountSum - UE.PendingSum)
-			)
-		, 0.0)
-		From vwUserEnvelopes UE
-		Where UE.EnvelopeId = @envelopeId
-			And UE.UserId = @userId
-	);
+    Select IFNULL
+    (
+        (
+                Select (@goal * (fn_calculate_envelope_stats_cost(envelopeId)) - SUM(T.Amount) - Sum(T.Pending))
+        )
+    , 0.0)
+    Into @retVal
+    From `envelope` E
+    Inner Join `transaction` T
+        On E.Id = T.EnvelopeId
+            And E.Id = envelopeId
+            And T.IsDeleted = 0
+    Group By E.Id;
 
-	Select @retVal = 
-	(
-		Select Case When @retVal < 0 Then	
-			0.0
-		Else
-			@retVal
-		End
-	);
+    Select Case When @retVal < 0 Then	
+        0.0
+    Else
+        @retVal
+    End
+    Into @retVal;
 
-	RETURN @retVal;
+    RETURN @retVal;
 END
