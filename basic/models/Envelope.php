@@ -111,4 +111,8 @@ class Envelope extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Transaction::className(), ['EnvelopeId' => 'Id']);
     }
+
+    public function getVwEnvelopeSum() {
+        return $this->hasOne(VwEnvelopeSum::className(), ['EnvelopeId' => 'Id']);
+    }
 }

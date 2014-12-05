@@ -52,7 +52,7 @@ class EnvelopeController extends Controller {
                 ])
                 ->orderBy('Name')
                 ->limit(100)
-                //->joinWith('vwAccountSum')
+                ->joinWith('vwEnvelopeSum')
                 ->all();
 //        BaseVarDumper::dump($accounts);
 

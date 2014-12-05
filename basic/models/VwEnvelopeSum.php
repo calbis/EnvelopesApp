@@ -49,4 +49,8 @@ class VwEnvelopeSum extends \yii\db\ActiveRecord
             'GoalDeposit' => 'Goal Deposit',
         ];
     }
+
+    public function getEnvelope() {
+        return $this->belongsTo(Envelope::className(), ['Id' => 'EnvelopeId']);
+    }
 }

@@ -135,16 +135,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Html::a($envelope->Name, ['transaction/index', 'envelopeId' => $envelope->Id], ['class' => $envelope->Color, 'title' => $envelope->Name]) ?>
             </td>
             <td class="editControls">
-                0.00<?php // ($account->vwAccountSum !== null ? $account->vwAccountSum->AccountSum : '0.00')  ?>
+                <?= ($envelope->vwEnvelopeSum !== null ? $envelope->vwEnvelopeSum->EnvelopeSum : '0.00')  ?>
             </td>
             <td class="editControls">
-                0.11<?php // ($account->vwAccountSum !== null ? $account->vwAccountSum->AccountPending : '0.00')  ?>
+                <?= ($envelope->vwEnvelopeSum !== null ? $envelope->vwEnvelopeSum->EnvelopePending : '0.00')  ?>
             </td>
             <td class="editControls">
-                0.22<?php // ($account->vwAccountSum !== null ? $account->vwAccountSum->AccountPending : '0.00')  ?>
+                <?= ($envelope->vwEnvelopeSum !== null ? $envelope->vwEnvelopeSum->StatsCost : '0.00')  ?>
             </td>
             <td class="editControls">
-                0.33<?php // ($account->vwAccountSum !== null ? $account->vwAccountSum->AccountPending : '0.00')  ?>
+                <?= ($envelope->vwEnvelopeSum !== null ? $envelope->vwEnvelopeSum->TimeLeft : '0.00')  ?>
             </td>
         </tr>
 <?php endforeach; ?>
