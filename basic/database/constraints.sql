@@ -77,3 +77,10 @@ ALTER TABLE `userFilter`
 ALTER VIEW `vw_account_sum`
   ADD CONSTRAINT `FK_VwAccountSum_AccountId_ToAccountId` FOREIGN KEY (`AccountId`) REFERENCES `account` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
 
+
+--
+-- Constraints for view `vw_envelope_sum`
+--
+ALTER VIEW `vw_envelope_sum`
+  ADD CONSTRAINT `FK_VwEnvelopeSum_EnvelopeId_ToEnvelopeId` FOREIGN KEY (`EnvelopeId`) REFERENCES `envelope` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+
