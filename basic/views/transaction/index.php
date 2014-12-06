@@ -10,6 +10,7 @@ use yii\grid\GridView;
 $this->title = 'Transactions';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?php $this->beginBlock('main-content'); ?>
 <div class="transaction-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -19,13 +20,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Transaction', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= GridView::widget([
+    <?=
+    GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'Id',
+            //'Id',
             'EnvelopeId',
             'Name',
             'PostedDate',
@@ -38,9 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'ModifiedOn',
             // 'ModifiedBy',
             // 'IsDeleted',
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
-    ]); ?>
+    ]);
+    ?>
 
 </div>
+<?php $this->endBlock(); ?>
