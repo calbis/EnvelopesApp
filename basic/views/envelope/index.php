@@ -21,19 +21,19 @@ $this->params['breadcrumbs'][] = $this->title;
         <tbody>
             <tr>
                 <td>Account Grand Total</td>
-                <td>100.00</td>
+                <td><?= $account->vwAccountSum->AccountSum ?></td>
             </tr>
             <tr>
                 <td>Account Pending</td>
-                <td>75.00</td>
+                <td><?= $account->vwAccountSum->AccountPending ?></td>
             </tr>
             <tr style="font-weight: bold;">
                 <td>Current Account Total hdnAccountId</td>
-                <td>25.00</td>
+                <td><?= $account->vwAccountSum->AccountSum + $account->vwAccountSum->AccountPending ?></td>
             </tr>
             <tr>
                 <td>From WebSite</td>
-                <td>txtExternalTotal</td>
+                <td>TextBox = <?= $account->ExternalTotal ?></td>
             </tr>
             <tr>
                 <td>
@@ -94,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <a class="showDialog" title="Expenses Graph" href="@Url.Action("_Chart", "Envelopes", new { accountId = ViewBag.Account.AccountId })">
        <img alt="Expense Graph" title="Expense Graphs" class="imgIcons" style="text-align: right;" src="Images/pie.png" /></a>
 </div>
-<h2 class="">Account Name in COLOR</h2>
+<h2 class="<?= $account->Color ?>"><?= $account->Name ?></h2>
 
 
 <div class="clear"></div>
