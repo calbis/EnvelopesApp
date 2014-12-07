@@ -126,7 +126,7 @@ class EnvelopeController extends Controller {
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index', 'accountId' => $model->AccountId]);
         } else {
-            $account = AccountController::findModel($accountId);
+            $account = AccountController::findModel($model->AccountId);
 
             if (Yii::$app->request->getIsAjax()) {
                 $this->layout = 'dialog';
