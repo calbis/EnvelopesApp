@@ -19,7 +19,7 @@ class TransactionController extends Controller {
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['get'],
+//                    'delete' => ['get'],
                 ],
             ],
         ];
@@ -32,7 +32,7 @@ class TransactionController extends Controller {
     public function actionIndex($envelopeId) {
         $envelope = EnvelopeController::findModelPlus($envelopeId);
         $account = AccountController::findModelPlus($envelope->AccountId);
-        
+
         $searchModel = new TransactionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $envelopeId);
 
@@ -50,8 +50,18 @@ class TransactionController extends Controller {
      * @return mixed
      */
     public function actionView($id) {
+        $model = $this->findModel($id);
+        $envelope = EnvelopeController::findModelPlus($model->EnvelopeId);
+        $account = AccountController::findModelPlus($envelope->AccountId);
+
+        if (Yii::$app->request->getIsAjax()) {
+            $this->layout = 'dialog';
+        }
+
         return $this->render('view', [
-                    'model' => $this->findModel($id),
+                    'model' => $model,
+                    'envelope' => $envelope,
+                    'account' => $account,
         ]);
     }
 
@@ -61,6 +71,9 @@ class TransactionController extends Controller {
      * @return mixed
      */
     public function actionCreate($envelopeId) {
+        $envelope = EnvelopeController::findModelPlus($envelopeId);
+        $account = AccountController::findModelPlus($envelope->AccountId);
+
         $model = new Transaction();
         $model->EnvelopeId = $envelopeId;
         $model->CreatedBy = 1;
@@ -75,8 +88,14 @@ class TransactionController extends Controller {
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index', 'envelopeId' => $model->EnvelopeId]);
         } else {
+            if (Yii::$app->request->getIsAjax()) {
+                $this->layout = 'dialog';
+            }
+
             return $this->render('create', [
                         'model' => $model,
+                        'envelope' => $envelope,
+                        'account' => $account,
             ]);
         }
     }
@@ -89,12 +108,20 @@ class TransactionController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->findModel($id);
+        $envelope = EnvelopeController::findModelPlus($model->EnvelopeId);
+        $account = AccountController::findModelPlus($envelope->AccountId);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index', 'envelopeId' => $model->EnvelopeId]);
         } else {
+            if (Yii::$app->request->getIsAjax()) {
+                $this->layout = 'dialog';
+            }
+
             return $this->render('update', [
                         'model' => $model,
+                        'envelope' => $envelope,
+                        'account' => $account,
             ]);
         }
     }

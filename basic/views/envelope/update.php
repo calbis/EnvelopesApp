@@ -6,10 +6,12 @@ use yii\helpers\Html;
 /* @var $model app\models\Envelope */
 
 $this->title = 'Update Envelope: ' . ' ' . $model->Name;
-$this->params['breadcrumbs'][] = ['label' => 'Envelopes', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->Name, 'url' => ['view', 'id' => $model->Id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'] = [
+    ['label' => 'Accounts', 'url' => ['account/index']],
+    ['label' => $account->Name],
+];
 ?>
+<?php $this->beginBlock('main-content'); ?>
 <div class="envelope-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -17,5 +19,5 @@ $this->params['breadcrumbs'][] = 'Update';
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
-
 </div>
+<?php $this->endBlock(); ?>

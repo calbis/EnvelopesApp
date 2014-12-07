@@ -24,16 +24,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'IsClosed')->textInput() ?>
 
-    <?= $form->field($model, 'CreatedOn')->textInput() ?>
-
-    <?= $form->field($model, 'CreatedBy')->textInput() ?>
-
-    <?= $form->field($model, 'ModifiedOn')->textInput() ?>
-
-    <?= $form->field($model, 'ModifiedBy')->textInput() ?>
-
-    <?= $form->field($model, 'IsDeleted')->textInput() ?>
-
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

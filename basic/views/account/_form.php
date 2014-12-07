@@ -20,16 +20,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'IsClosed')->textInput() ?>
 
-    <?= $form->field($model, 'CreatedOn')->textInput() ?>
-
-    <?= $form->field($model, 'CreatedBy')->textInput() ?>
-
-    <?= $form->field($model, 'ModifiedOn')->textInput() ?>
-
-    <?= $form->field($model, 'ModifiedBy')->textInput() ?>
-
-    <?= $form->field($model, 'IsDeleted')->textInput() ?>
-
     <?= $form->field($model, 'ExternalTotal')->textInput(['maxlength' => 19]) ?>
 
     <div class="form-group">

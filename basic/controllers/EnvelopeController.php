@@ -19,7 +19,7 @@ class EnvelopeController extends Controller {
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['get'],
+//                    'delete' => ['get'],
                 ],
             ],
         ];
@@ -68,12 +68,16 @@ class EnvelopeController extends Controller {
      * @return mixed
      */
     public function actionView($id) {
+        $model = $this->findModel($id);
+        $account = AccountController::findModel($model->AccountId);
+
         if (Yii::$app->request->getIsAjax()) {
             $this->layout = 'dialog';
         }
 
         return $this->render('view', [
-                    'model' => $this->findModel($id),
+                    'model' => $model,
+                    'account' => $account,
         ]);
     }
 
@@ -83,6 +87,7 @@ class EnvelopeController extends Controller {
      * @return mixed
      */
     public function actionCreate($accountId) {
+
         $model = new Envelope();
         $model->AccountId = $accountId;
         $model->CreatedBy = 1;
@@ -96,12 +101,15 @@ class EnvelopeController extends Controller {
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index', 'accountId' => $model->AccountId]);
         } else {
+            $account = AccountController::findModel($accountId);
+
             if (Yii::$app->request->getIsAjax()) {
                 $this->layout = 'dialog';
             }
 
             return $this->render('create', [
                         'model' => $model,
+                        'account' => $account,
             ]);
         }
     }
@@ -118,12 +126,15 @@ class EnvelopeController extends Controller {
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index', 'accountId' => $model->AccountId]);
         } else {
+            $account = AccountController::findModel($accountId);
+
             if (Yii::$app->request->getIsAjax()) {
                 $this->layout = 'dialog';
             }
 
             return $this->render('update', [
                         'model' => $model,
+                        'account' => $account,
             ]);
         }
     }
@@ -148,7 +159,7 @@ class EnvelopeController extends Controller {
      * @return Envelope the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id) {
+    public function findModel($id) {
         if (($model = Envelope::findOne($id)) !== null) {
             return $model;
         } else {
@@ -165,7 +176,7 @@ class EnvelopeController extends Controller {
                 ])
                 ->joinWith('vwEnvelopeSum')
                 ->one();
-        
+
         return $envelope;
     }
 

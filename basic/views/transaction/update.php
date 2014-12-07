@@ -6,10 +6,14 @@ use yii\helpers\Html;
 /* @var $model app\models\Transaction */
 
 $this->title = 'Update Transaction: ' . ' ' . $model->Name;
-$this->params['breadcrumbs'][] = ['label' => 'Transactions', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->Name, 'url' => ['view', 'id' => $model->Id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'] = [
+    ['label' => 'Accounts', 'url' => ['account/index']],
+    ['label' => $account->Name, 'url' => ['envelope/index', 'accountId' => $envelope->AccountId]],
+    ['label' => $envelope->Name, 'url' => ['transaction/index', 'envelopeId' => $envelope->Id]],
+    ['label' => $this->title],
+];
 ?>
+<?php $this->beginBlock('main-content'); ?>
 <div class="transaction-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -17,5 +21,5 @@ $this->params['breadcrumbs'][] = 'Update';
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
-
 </div>
+<?php $this->endBlock(); ?>

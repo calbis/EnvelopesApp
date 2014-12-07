@@ -23,7 +23,7 @@ class AccountController extends Controller {
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['get'],
+//                    'delete' => ['get'],
                 ],
             ],
         ];
@@ -149,7 +149,7 @@ class AccountController extends Controller {
      * @return Account the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id) {
+    public function findModel($id) {
         if (($model = Account::findOne($id)) !== null) {
             return $model;
         } else {

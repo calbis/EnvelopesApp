@@ -8,8 +8,14 @@ use yii\widgets\DetailView;
 
 $this->title = $model->Name;
 $this->params['breadcrumbs'][] = ['label' => 'Transactions', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'] = [
+    ['label' => 'Accounts', 'url' => ['account/index']],
+    ['label' => $account->Name, 'url' => ['envelope/index', 'accountId' => $envelope->AccountId]],
+    ['label' => $envelope->Name, 'url' => ['transaction/index', 'envelopeId' => $envelope->Id]],
+    ['label' => $this->title],
+];
 ?>
+<?php $this->beginBlock('main-content'); ?>
 <div class="transaction-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -43,5 +49,5 @@ $this->params['breadcrumbs'][] = $this->title;
             'IsDeleted',
         ],
     ]) ?>
-
 </div>
+<?php $this->endBlock(); ?>

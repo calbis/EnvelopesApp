@@ -15,11 +15,8 @@ $this->params['breadcrumbs'] = [
 ];
 ?>
 <?php $this->beginBlock('main-content'); ?>
-<h2 class="<?= $account->Color ?>"><?= Html::a($account->Name, ['envelope/index', 'accountId' => $account->Id], ['class' => '', 'title' => $account->Name]) ?></h2>
 <div class="transaction-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php //echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a('Create Transaction', ['create', 'envelopeId' => $envelope->Id], ['class' => 'btn btn-success showDialog', 'title' => 'Create Transaction']) ?>
@@ -31,10 +28,12 @@ $this->params['breadcrumbs'] = [
         'filterModel' => $searchModel,
         'columns' => //$gridColumns,
         [
+            ['class' => 'yii\grid\SerialColumn'],
             'Name',
             'PostedDate',
             'Amount',
             'Pending',
+            ['class' => 'yii\grid\ActionColumn'],
         ],
         'responsive' => true,
         'hover' => true

@@ -7,9 +7,12 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Envelope */
 
 $this->title = $model->Name;
-$this->params['breadcrumbs'][] = ['label' => 'Envelopes', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'] = [
+    ['label' => 'Accounts', 'url' => ['account/index']],
+    ['label' => $account->Name],
+];
 ?>
+<?php $this->beginBlock('main-content'); ?>
 <div class="envelope-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -42,5 +45,5 @@ $this->params['breadcrumbs'][] = $this->title;
             'IsDeleted',
         ],
     ]) ?>
-
 </div>
+<?php $this->endBlock(); ?>
