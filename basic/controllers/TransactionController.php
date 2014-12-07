@@ -12,15 +12,14 @@ use yii\filters\VerbFilter;
 /**
  * TransactionController implements the CRUD actions for Transaction model.
  */
-class TransactionController extends Controller
-{
-    public function behaviors()
-    {
+class TransactionController extends Controller {
+
+    public function behaviors() {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post'],
+                    'delete' => ['get'],
                 ],
             ],
         ];
@@ -30,14 +29,18 @@ class TransactionController extends Controller
      * Lists all Transaction models.
      * @return mixed
      */
-    public function actionIndex($envelopeId)
-    {
+    public function actionIndex($envelopeId) {
+        $envelope = EnvelopeController::findModelPlus($envelopeId);
+        $account = AccountController::findModelPlus($envelope->AccountId);
+        
         $searchModel = new TransactionSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $envelopeId);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                    'envelope' => $envelope,
+                    'account' => $account,
         ]);
     }
 
@@ -46,10 +49,9 @@ class TransactionController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
-    {
+    public function actionView($id) {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+                    'model' => $this->findModel($id),
         ]);
     }
 
@@ -58,15 +60,23 @@ class TransactionController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate($envelopeId) {
         $model = new Transaction();
+        $model->EnvelopeId = $envelopeId;
+        $model->CreatedBy = 1;
+        $model->ModifiedBy = 1;
+        $currDate = date('Y-m-d H:i:s');
+        $model->CreatedOn = $currDate;
+        $model->ModifiedOn = $currDate;
+        $model->IsDeleted = 0;
+        $model->IsRefund = 0;
+        $model->UseInStats = 1;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->Id]);
+            return $this->redirect(['index', 'envelopeId' => $model->EnvelopeId]);
         } else {
             return $this->render('create', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
@@ -77,15 +87,14 @@ class TransactionController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->Id]);
+            return $this->redirect(['index', 'envelopeId' => $model->EnvelopeId]);
         } else {
             return $this->render('update', [
-                'model' => $model,
+                        'model' => $model,
             ]);
         }
     }
@@ -96,11 +105,11 @@ class TransactionController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
+        $envelopeId = $this->findModel($id)->EnvelopeId;
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['index', 'envelopeId' => $envelopeId]);
     }
 
     /**
@@ -110,12 +119,12 @@ class TransactionController extends Controller
      * @return Transaction the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Transaction::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 }

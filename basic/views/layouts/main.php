@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 //use yii\bootstrap\Nav;
 //use yii\bootstrap\NavBar;
-//use yii\widgets\Breadcrumbs;
+use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use yii\helpers\Url;
 
@@ -27,12 +27,12 @@ AppAsset::register($this);
 
         <?php $this->beginBody() ?>
         <div id="page-wrap">
-            <div id="header">
+            <div id="headerBar">
                 <div>
                     <section id="login">
                         login
                     </section>
-                    <nav>
+                    <nav id="headerNav">
                         <ul id="menu">
                             <li><a href="<?= Url::home(); ?>">Home</a></li>
                             <li><a href="./index.php?r=account/index">Accounts</a></li>
@@ -40,8 +40,13 @@ AppAsset::register($this);
                         </ul>
                     </nav>
                 </div>
+                <?php
+                echo Breadcrumbs::widget([
+                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                ]);
+                ?>
             </div>
-            <div class="container">
+            <div class="mainContainer">
                 <?= $content ?>
                 <?php if (isset($this->blocks['main-content'])): ?>
                     <div id="main-content">

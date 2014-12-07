@@ -9,7 +9,10 @@ use yii\i18n\Formatter;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Envelopes';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'] = [
+    ['label' => 'Accounts', 'url' => ['account/index']],
+    ['label' => $account->Name],
+];
 ?>
 
 
@@ -56,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </tbody>
         <tfoot></tfoot>
     </table>
-}
+    }
 </div>
 <div>
     <table>
@@ -132,22 +135,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 ?>                
             </td>
             <td class="<?= $envelope->Color ?>">
-    <?= Html::a($envelope->Name, ['transaction/index', 'envelopeId' => $envelope->Id], ['class' => $envelope->Color, 'title' => $envelope->Name]) ?>
+                <?= Html::a($envelope->Name, ['transaction/index', 'envelopeId' => $envelope->Id], ['class' => $envelope->Color, 'title' => $envelope->Name]) ?>
             </td>
             <td class="editControls">
-                <?= ($envelope->vwEnvelopeSum !== null ? $envelope->vwEnvelopeSum->EnvelopeSum : '0.00')  ?>
+                <?= ($envelope->vwEnvelopeSum !== null ? $envelope->vwEnvelopeSum->EnvelopeSum : '0.00') ?>
             </td>
             <td class="editControls">
-                <?= ($envelope->vwEnvelopeSum !== null ? $envelope->vwEnvelopeSum->EnvelopePending : '0.00')  ?>
+                <?= ($envelope->vwEnvelopeSum !== null ? $envelope->vwEnvelopeSum->EnvelopePending : '0.00') ?>
             </td>
             <td class="editControls">
-                <?= ($envelope->vwEnvelopeSum !== null ? $envelope->vwEnvelopeSum->StatsCost : '0.00')  ?>
+                <?= ($envelope->vwEnvelopeSum !== null ? $envelope->vwEnvelopeSum->StatsCost : '0.00') ?>
             </td>
             <td class="editControls">
-                <?= ($envelope->vwEnvelopeSum !== null ? $envelope->vwEnvelopeSum->TimeLeft : '0.00')  ?>
+                <?= ($envelope->vwEnvelopeSum !== null ? $envelope->vwEnvelopeSum->TimeLeft : '0.00') ?>
             </td>
         </tr>
-<?php endforeach; ?>
+    <?php endforeach; ?>
 </table>
 <?php $this->endBlock(); ?>
 

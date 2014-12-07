@@ -156,4 +156,17 @@ class EnvelopeController extends Controller {
         }
     }
 
+    public function findModelPlus($id) {
+        $query = Envelope::find();
+
+        $envelope = $query->select('Id, AccountId, Name, Color')
+                ->where([
+                    'Id' => $id,
+                ])
+                ->joinWith('vwEnvelopeSum')
+                ->one();
+        
+        return $envelope;
+    }
+
 }

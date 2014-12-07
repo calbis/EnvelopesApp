@@ -18,9 +18,8 @@ body {
     color: black;
 }
 
-#header {
+#headerBar {
     background: #EBEFDE;
-    height: 35px;
     padding: 10px;
     margin-bottom: 5px;
     border: solid 2px #999;
