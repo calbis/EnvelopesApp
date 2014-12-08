@@ -153,5 +153,5 @@ $this->params['breadcrumbs'] = [
 <?php $this->endBlock(); ?>
 
 <?php $this->beginBlock('secondary-one'); ?>
-<?php $this->renderAjax('//transaction/account-transactions', ['accountId' => $account->Id]) ?>
+<?php //$this->renderAjax('//transaction/account-transactions', ['accountId' => $account->Id]) ?>
 <?php $this->endBlock(); ?>
