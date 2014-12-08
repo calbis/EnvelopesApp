@@ -1,8 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
-use yii\i18n\Formatter;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\EnvelopeSearch */
@@ -155,6 +153,5 @@ $this->params['breadcrumbs'] = [
 <?php $this->endBlock(); ?>
 
 <?php $this->beginBlock('secondary-one'); ?>
-<?php // $this->render('//transaction/account-transactions') ?>
-
+<?php $this->renderAjax('//transaction/account-transactions', ['accountId' => $account->Id]) ?>
 <?php $this->endBlock(); ?>

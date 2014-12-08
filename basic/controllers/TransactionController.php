@@ -65,7 +65,7 @@ class TransactionController extends Controller {
         $searchModel = new TransactionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $envelopeIds, 45);
 
-        return $this->render('account-transactions', [
+        return $this->renderAjax('account-transactions', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
         ]);
