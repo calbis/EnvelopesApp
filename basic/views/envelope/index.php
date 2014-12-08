@@ -155,5 +155,6 @@ $this->params['breadcrumbs'] = [
 <?php $this->endBlock(); ?>
 
 <?php $this->beginBlock('secondary-one'); ?>
-list of transactions
+<?php // $this->render('//transaction/account-transactions') ?>
+
 <?php $this->endBlock(); ?>

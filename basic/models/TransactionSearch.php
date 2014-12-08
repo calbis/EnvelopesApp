@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Transaction;
+use yii\helpers\BaseVarDumper;
 
 /**
  * TransactionSearch represents the model behind the search form about `app\models\Transaction`.
@@ -38,13 +39,20 @@ class TransactionSearch extends Transaction {
      *
      * @return ActiveDataProvider
      */
-    public function search($params, $envelopeId) {
+    public function search($params, $envelopeIds, $days) {
+        
         $query = Transaction::find();
-        $query->where([
-                    'IsDeleted' => 0,
-                    'EnvelopeId' => $envelopeId,
-                ])
-                ->all();
+            $query->where([
+                        'IsDeleted' => 0,
+                        'EnvelopeId' => $envelopeIds,
+                    ])
+                    ->all();
+            
+        if ($days !== null) {
+            $date = date('Y-m-d H:i:s', strtotime("-" . $days . " days"));
+            
+            $query->andWhere(['>=', 'PostedDate', $date]);
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

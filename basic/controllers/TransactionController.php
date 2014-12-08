@@ -8,6 +8,7 @@ use app\models\TransactionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Envelope;
 
 /**
  * TransactionController implements the CRUD actions for Transaction model.
@@ -34,13 +35,39 @@ class TransactionController extends Controller {
         $account = AccountController::findModelPlus($envelope->AccountId);
 
         $searchModel = new TransactionSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $envelopeId);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $envelopeId, null);
 
         return $this->render('index', [
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
                     'envelope' => $envelope,
                     'account' => $account,
+        ]);
+    }
+
+    public function actionAccountTransactions($accountId) {
+        $query = Envelope::find();
+        $envelopes = $query->select('Id')
+                ->where([
+                    'IsDeleted' => 0,
+                    'IsClosed' => 0,
+                    'AccountId' => $accountId,
+                ])
+                ->limit(100)
+                ->all();
+        
+        $envelope = null;
+        $envelopeIds = [];
+        foreach($envelopes as $envelope) {
+            array_push($envelopeIds, $envelope->Id);
+        }
+
+        $searchModel = new TransactionSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $envelopeIds, 45);
+
+        return $this->render('account-transactions', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
         ]);
     }
 

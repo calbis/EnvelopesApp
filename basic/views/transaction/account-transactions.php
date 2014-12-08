@@ -8,20 +8,9 @@ use kartik\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Transactions';
-$this->params['breadcrumbs'] = [
-    ['label' => 'Accounts', 'url' => ['account/index']],
-    ['label' => $account->Name, 'url' => ['envelope/index', 'accountId' => $envelope->AccountId]],
-    ['label' => $envelope->Name],
-];
+
 ?>
-<?php $this->beginBlock('main-content'); ?>
 <div class="transaction-index">
-    <?php //echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Create Transaction', ['create', 'envelopeId' => $envelope->Id], ['class' => 'btn btn-success showDialog', 'title' => 'Create Transaction']) ?>
-    </p>
-
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,
@@ -44,6 +33,4 @@ $this->params['breadcrumbs'] = [
         'bootstrap' => true
     ]);
     ?>
-
 </div>
-<?php $this->endBlock(); ?>
