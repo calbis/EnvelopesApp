@@ -196,6 +196,10 @@ table td, th {
     margin: 5px auto 20px auto;
 }
 
+.tdNonWrap {
+    white-space: nowrap;
+}
+
 
 /*Slick Grid*/
 .contextMenu {
