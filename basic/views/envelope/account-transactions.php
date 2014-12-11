@@ -8,20 +8,10 @@ use kartik\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Transactions';
-$this->params['breadcrumbs'] = [
-    ['label' => 'Accounts', 'url' => ['account/index']],
-    ['label' => $account->Name, 'url' => ['envelope/index', 'accountId' => $envelope->AccountId]],
-    ['label' => $envelope->Name],
-];
-?>
-<?php $this->beginBlock('main-content'); ?>
-<div class="transaction-index">
-    <?php //echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Transaction', ['create', 'envelopeId' => $envelope->Id], ['class' => 'btn btn-success showDialog', 'title' => 'Create Transaction']) ?>
-    </p>
-<?php
+?>
+<div class="transaction-index">
+    <?php
    
 $actionCol = [
     'class' => 'yii\grid\ActionColumn',
@@ -67,12 +57,13 @@ $actionCol = [
             return $url;
         }
         elseif ($action === 'pending') {
-           $url = yii\helpers\Url::to(['transaction/move-pending', 'id' => $model->Id, 'postBack' => 'transaction']);
+           $url = yii\helpers\Url::to(['transaction/move-pending', 'id' => $model->Id, 'postBack' => 'envelope']);
             return $url;
         }
     }
 ];
 ?>
+    
     <?=
     GridView::widget([
         'dataProvider' => $dataProvider,
@@ -95,6 +86,4 @@ $actionCol = [
         'bootstrap' => true
     ]);
     ?>
-
 </div>
-<?php $this->endBlock(); ?>

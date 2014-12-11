@@ -45,32 +45,6 @@ class TransactionController extends Controller {
         ]);
     }
 
-    public function actionAccountTransactions($accountId) {
-        $query = Envelope::find();
-        $envelopes = $query->select('Id')
-                ->where([
-                    'IsDeleted' => 0,
-                    'IsClosed' => 0,
-                    'AccountId' => $accountId,
-                ])
-                ->limit(100)
-                ->all();
-
-        $envelope = null;
-        $envelopeIds = [];
-        foreach ($envelopes as $envelope) {
-            array_push($envelopeIds, $envelope->Id);
-        }
-
-        $searchModel = new TransactionSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $envelopeIds, 45);
-
-        return $this->renderAjax('account-transactions', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
-        ]);
-    }
-
     /**
      * Displays a single Transaction model.
      * @param integer $id
@@ -169,7 +143,7 @@ class TransactionController extends Controller {
         return $this->redirect(['index', 'envelopeId' => $envelopeId]);
     }
 
-    public function actionMovePending($id) {
+    public function actionMovePending($id, $postBack) {
         $model = $this->findModel($id);
 
         if ($model->Pending != 0) {
@@ -181,9 +155,14 @@ class TransactionController extends Controller {
             $model->save();
         }
 
-        return $this->redirect(['index', 'envelopeId' => $model->EnvelopeId]);
+        if ($postBack === "envelope") {
+            $envelope = EnvelopeController::findModel($model->EnvelopeId);
+            
+            return $this->redirect(['envelope/index', 'accountId' => $envelope->AccountId]);
+        } else {
+            return $this->redirect(['index', 'envelopeId' => $model->EnvelopeId]);
+        }
     }
-    
 
     /**
      * Finds the Transaction model based on its primary key value.

@@ -156,5 +156,11 @@ $this->params['breadcrumbs'] = [
 <?php $this->endBlock(); ?>
 
 <?php $this->beginBlock('secondary-one'); ?>
+    <?=
+    $this->render('account-transactions', [
+        'dataProvider' => $atDataProvider,
+        'searchModel' => $atSearchModel,
+    ])
+    ?>
 <?php //$this->renderAjax('//transaction/account-transactions', ['accountId' => $account->Id]) ?>
 <?php $this->endBlock(); ?>
