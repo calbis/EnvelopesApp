@@ -241,13 +241,11 @@ table td, th {
     width: 14px;
 }
 
-.tblInputForm {
-}
-
-.tblInputForm td, th {
+.controlLabel .formControl {
     padding: 3px 5px;
     margin: 0px;
-    border-collapse: collapse;
+    width: 150px;
+    display: block;
 }
 
 

@@ -12,19 +12,19 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'EnvelopeId')->textInput() ?>
+    <?= $form->field($model, 'EnvelopeId')->textInput(['class' => 'formControl'])->label('Envelope', ['class' => 'controlLabel']) ?>
 
-    <?= $form->field($model, 'Name')->textInput(['maxlength' => 255]) ?>
+    <?= $form->field($model, 'Name')->textInput(['maxlength' => 255, 'class' => 'formControl']) ?>
 
-    <?= $form->field($model, 'PostedDate')->textInput() ?>
+    <?= $form->field($model, 'PostedDate')->textInput(['class' => 'datePicker']) ?>
 
-    <?= $form->field($model, 'Amount')->textInput(['maxlength' => 19]) ?>
+    <?= $form->field($model, 'Amount')->textInput(['maxlength' => 19, 'class' => 'formControl']) ?>
 
-    <?= $form->field($model, 'Pending')->textInput(['maxlength' => 19]) ?>
+    <?= $form->field($model, 'Pending')->textInput(['maxlength' => 19, 'class' => 'formControl']) ?>
 
-    <?= $form->field($model, 'UseInStats')->textInput() ?>
+    <?= $form->field($model, 'UseInStats')->textInput(['class' => 'formControl']) ?>
 
-    <?= $form->field($model, 'IsRefund')->textInput() ?>
+    <?= $form->field($model, 'IsRefund')->textInput(['class' => 'formControl']) ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
