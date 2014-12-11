@@ -55,10 +55,10 @@ class TransactionController extends Controller {
                 ])
                 ->limit(100)
                 ->all();
-        
+
         $envelope = null;
         $envelopeIds = [];
-        foreach($envelopes as $envelope) {
+        foreach ($envelopes as $envelope) {
             array_push($envelopeIds, $envelope->Id);
         }
 
@@ -138,6 +138,9 @@ class TransactionController extends Controller {
         $envelope = EnvelopeController::findModelPlus($model->EnvelopeId);
         $account = AccountController::findModelPlus($envelope->AccountId);
 
+        $model->ModifiedBy = 1;
+        $model->ModifiedOn = date('Y-m-d H:i:s');
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index', 'envelopeId' => $model->EnvelopeId]);
         } else {
@@ -165,6 +168,22 @@ class TransactionController extends Controller {
 
         return $this->redirect(['index', 'envelopeId' => $envelopeId]);
     }
+
+    public function actionMovePending($id) {
+        $model = $this->findModel($id);
+
+        if ($model->Pending != 0) {
+            $model->Amount = $model->Pending;
+            $model->Pending = 0;
+            $model->ModifiedBy = 1;
+            $model->ModifiedOn = date('Y-m-d H:i:s');
+
+            $model->save();
+        }
+
+        return $this->redirect(['index', 'envelopeId' => $model->EnvelopeId]);
+    }
+    
 
     /**
      * Finds the Transaction model based on its primary key value.
