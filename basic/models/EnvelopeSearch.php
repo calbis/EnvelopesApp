@@ -69,4 +69,19 @@ class EnvelopeSearch extends Envelope
 
         return $dataProvider;
     }
+
+    public function findForDDL($accountId) {
+        $query = Envelope::find();
+        
+        $envelopes = $query->select('Id, Name')
+                ->where([
+                    'IsDeleted' => 0,
+                    'IsClosed' => 0,
+                    'AccountId' => $accountId,
+                ])
+                ->limit(100)
+                ->all();
+
+        return $envelopes;
+    }
 }

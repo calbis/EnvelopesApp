@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\EnvelopeSearch;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Transaction */
@@ -12,7 +14,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'EnvelopeId')->textInput(['class' => 'formControl'])->label('Envelope', ['class' => 'controlLabel']) ?>
+    <?=
+    Html::activeDropDownList($model, 'EnvelopeId', ArrayHelper::map(EnvelopeSearch::findForDDL($account->Id) , 'Id', 'Name'))
+    ?>
 
     <?= $form->field($model, 'Name')->textInput(['maxlength' => 255, 'class' => 'formControl']) ?>
 

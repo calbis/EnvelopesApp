@@ -21,6 +21,7 @@ $this->params['breadcrumbs'] = [
     <?=
     $this->render('_form', [
         'model' => $model,
+        'account' => $account,
     ])
     ?>
 </div>
