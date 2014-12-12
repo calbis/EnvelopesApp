@@ -69,4 +69,18 @@ class AccountSearch extends Account
 
         return $dataProvider;
     }
+
+    public function findForDDL() {
+        $query = Account::find();
+        
+        $accounts = $query->select('Id, Name')
+                ->where([
+                    'IsDeleted' => 0,
+                    'IsClosed' => 0,
+                ])
+                ->limit(100)
+                ->all();
+
+        return $accounts;
+    }
 }

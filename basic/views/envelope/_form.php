@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\AccountSearch;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Envelope */
@@ -12,7 +14,9 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'AccountId')->textInput() ?>
+    <?=
+    Html::activeDropDownList($model, 'AccountId', ArrayHelper::map(AccountSearch::findForDDL(), 'Id', 'Name'))
+    ?>
 
     <?= $form->field($model, 'Name')->textInput(['maxlength' => 255]) ?>
 
