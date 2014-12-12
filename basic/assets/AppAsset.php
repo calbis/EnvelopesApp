@@ -27,7 +27,6 @@ class AppAsset extends AssetBundle
         'jquery-ui/css/smoothness/jquery-ui-1.10.0.custom.css',
     ];
     public $js = [
-        'Scripts/jquery-1.9.1.min.js',
         'jquery-ui/js/jquery-ui-1.10.0.custom.min.js',
         'Scripts/main.js',
     ];
