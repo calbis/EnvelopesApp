@@ -157,10 +157,34 @@ class TransactionController extends Controller {
 
         if ($postBack === "envelope") {
             $envelope = EnvelopeController::findModel($model->EnvelopeId);
-            
+
             return $this->redirect(['envelope/index', 'accountId' => $envelope->AccountId]);
         } else {
             return $this->redirect(['index', 'envelopeId' => $model->EnvelopeId]);
+        }
+    }
+
+    public function actionTransfer() {
+        $model = new Transaction();
+        $model->CreatedBy = 1;
+        $model->ModifiedBy = 1;
+        $currDate = date('Y-m-d H:i:s');
+        $model->CreatedOn = $currDate;
+        $model->ModifiedOn = $currDate;
+        $model->IsDeleted = 0;
+        $model->IsRefund = 0;
+        $model->UseInStats = 0;
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index', 'envelopeId' => $model->EnvelopeId]);
+        } else {
+            if (Yii::$app->request->getIsAjax()) {
+                $this->layout = 'dialog';
+            }
+
+            return $this->render('transfer', [
+                        'model' => $model,
+            ]);
         }
     }
 

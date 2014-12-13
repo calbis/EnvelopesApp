@@ -88,8 +88,10 @@ $this->params['breadcrumbs'] = [
        <img alt="Add a Paycheck" title="Add a Paycheck" class="imgIcons" style="text-align: right;" src="Images/paycheck.jpg" /></a>
 </div>
 <div style="float: right; margin-left: 40px;">
-    <a class="showDialog" title="Transfer Funds" href="@Url.Action("AddTransfer", "Transactions", new { accountId = ViewBag.Account.AccountId })">
-       <img alt="Transfer Funds" title="Transfer Funds" class="imgIcons" style="text-align: right;" src="Images/transfer.png" /></a>
+    <?=
+    Html::a('<img alt="Transfer Funds" title="Transfer Funds" class="imgIcons" style="text-align: right;" src="Images/transfer.png" />', ['transaction/transfer'], ['class' => 'showDialog', 'title' => 'Transfer Funds'])
+    ?>
+
 </div>
 <div style="float: right; margin-left: 40px;">
     <a class="showDialog" title="Expenses Graph" href="@Url.Action("_Chart", "Envelopes", new { accountId = ViewBag.Account.AccountId })">
@@ -156,11 +158,11 @@ $this->params['breadcrumbs'] = [
 <?php $this->endBlock(); ?>
 
 <?php $this->beginBlock('secondary-one'); ?>
-    <?=
-    $this->render('account-transactions', [
-        'dataProvider' => $atDataProvider,
-        'searchModel' => $atSearchModel,
-    ])
-    ?>
+<?=
+$this->render('account-transactions', [
+    'dataProvider' => $atDataProvider,
+    'searchModel' => $atSearchModel,
+])
+?>
 <?php //$this->renderAjax('//transaction/account-transactions', ['accountId' => $account->Id]) ?>
 <?php $this->endBlock(); ?>

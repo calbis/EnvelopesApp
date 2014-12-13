@@ -6,7 +6,6 @@ use yii\helpers\Html;
 /* @var $model app\models\Transaction */
 
 $this->title = 'Create Transaction';
-$this->params['breadcrumbs'][] = ['label' => 'Transactions', 'url' => ['index']];
 $this->params['breadcrumbs'] = [
     ['label' => 'Accounts', 'url' => ['account/index']],
     ['label' => $account->Name, 'url' => ['envelope/index', 'accountId' => $envelope->AccountId]],

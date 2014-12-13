@@ -84,4 +84,23 @@ class EnvelopeSearch extends Envelope
 
         return $envelopes;
     }
+
+    public function findForTransferDDL() {
+        $query = Envelope::find();
+        
+        $envelopes = $query->select("E.Id As Id, E.Name As Name, CONCAT(A.Name, ' - ', E.Name) As ExtName ")
+                ->from('envelope E')
+                ->innerJoin('account A' , 'E.AccountId = A.Id')
+                ->where([
+                    'A.IsDeleted' => 0,
+                    'A.IsClosed' => 0,
+                    'A.IsCash' => 0,
+                    'E.IsClosed' => 0,
+                    'E.IsDeleted' => 0,
+                ])
+                ->limit(150)
+                ->all();
+
+        return $envelopes;
+    }
 }
