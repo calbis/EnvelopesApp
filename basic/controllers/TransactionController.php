@@ -142,7 +142,7 @@ class TransactionController extends Controller {
 
         if ($model->Pending != 0) {
             $model->Amount = $model->Pending;
-            $model->Pending = 0;
+            $model->Pending = null;
             $model->ModifiedBy = 1;
             $model->ModifiedOn = date('Y-m-d H:i:s');
 
@@ -184,8 +184,8 @@ class TransactionController extends Controller {
             $e = EnvelopeController::findModel($transactions[1]->EnvelopeId);
             $a = AccountController::findModel($e->AccountId);
 
-            $transactions[0]->Amount = $transactions[0]->Amount * -1;
-            $transactions[0]->Pending = $transactions[0]->Pending * -1;
+            $transactions[0]->Amount === "" ? $transactions[0]->Amount : $transactions[0]->Amount = $transactions[0]->Amount * -1;
+            $transactions[0]->Pending === "" ? $transactions[0]->Pending : $transactions[0]->Pending = $transactions[0]->Pending * -1;
             $transactions[0]->Name = "TrxT " . $a->Name . " - " . $e->Name . " " . $transactions[0]->Name;
 
             foreach ($transactions as $transaction) {
