@@ -26,21 +26,31 @@ use Yii;
  * @property Envelope $envelope
  * @property User $modifiedBy
  */
-class Transaction extends \yii\db\ActiveRecord
-{
+class Transaction extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'transaction';
+    }
+
+    public function init() {
+        parent::init();
+
+        $currDate = date('Y-m-d H:i:s');
+
+        $this->CreatedOn = $currDate;
+        $this->ModifiedOn = $currDate;
+        $this->IsDeleted = 0;
+        $this->IsRefund = 0;
+        $this->UseInStats = 1;        
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['EnvelopeId', 'Name', 'PostedDate', 'CreatedOn', 'CreatedBy', 'ModifiedOn', 'ModifiedBy'], 'required'],
             [['EnvelopeId', 'UseInStats', 'IsRefund', 'CreatedBy', 'ModifiedBy', 'IsDeleted'], 'integer'],
@@ -53,8 +63,7 @@ class Transaction extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'Id' => 'ID',
             'EnvelopeId' => 'Envelope ID',
@@ -75,32 +84,29 @@ class Transaction extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getLabels()
-    {
+    public function getLabels() {
         return $this->hasMany(Label::className(), ['TransactionId' => 'Id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCreatedBy()
-    {
+    public function getCreatedBy() {
         return $this->hasOne(User::className(), ['Id' => 'CreatedBy']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getEnvelope()
-    {
+    public function getEnvelope() {
         return $this->hasOne(Envelope::className(), ['Id' => 'EnvelopeId']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getModifiedBy()
-    {
+    public function getModifiedBy() {
         return $this->hasOne(User::className(), ['Id' => 'ModifiedBy']);
     }
+
 }

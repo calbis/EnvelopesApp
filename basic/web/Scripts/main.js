@@ -4,7 +4,7 @@
         $(".editControls").toggleClass("hiddenEditControls");
     });
 
-    $(".datePicker").datepicker();
+    $(".datePicker").datepicker({ dateFormat: 'yy-mm-dd' });
 
     /*Envelopes/Index*/
     $(".filterMe-txt").keyup(function () {
@@ -81,7 +81,7 @@
         $("#dialog").dialog({
             width: 'auto'
         });
-        $(".datePicker").datepicker();
+        $(".datePicker").datepicker({ dateFormat: 'yy-mm-dd' });
     }
     /*END Dialog*/
 

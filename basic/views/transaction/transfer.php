@@ -21,23 +21,24 @@ $this->params['breadcrumbs'] = [
 
         <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($model, 'Amount')->textInput(['maxlength' => 19, 'class' => 'formControl']) ?>
+        <?= $form->field($transactions[0], '[0]Amount')->textInput(['maxlength' => 19, 'class' => 'formControl']) ?>
 
-        <?= $form->field($model, 'Pending')->textInput(['maxlength' => 19, 'class' => 'formControl']) ?>
-        
-        <label for="EnvelopeIdFrom">
+        <?= $form->field($transactions[0], '[0]Pending')->textInput(['maxlength' => 19, 'class' => 'formControl']) ?>
+        <p>
+            <label for="EnvelopeId">From: </label>
             <?=
-            Html::activeDropDownList($model, 'EnvelopeIdFrom', ArrayHelper::map(EnvelopeSearch::findForTransferDDL(), 'Id', 'ExtName'))
+            Html::activeDropDownList($transactions[0], '[0]EnvelopeId', ArrayHelper::map(EnvelopeSearch::findForTransferDDL(), 'Id', 'Name'))
             ?>
-        </label>
-        <label for="EnvelopeIdTo">
+        </p>
+        <p>
+            <label for="EnvelopeId">To: </label>
             <?=
-            Html::activeDropDownList($model, 'EnvelopeIdTo', ArrayHelper::map(EnvelopeSearch::findForTransferDDL(), 'Id', 'ExtName'))
+            Html::activeDropDownList($transactions[1], '[1]EnvelopeId', ArrayHelper::map(EnvelopeSearch::findForTransferDDL(), 'Id', 'Name'))
             ?>
-        </label>
-        <?= $form->field($model, 'Name')->textInput(['maxlength' => 255, 'class' => 'formControl'])->label('Optional Name') ?>
+        </p>
+        <?= $form->field($transactions[0], '[0]Name')->textInput(['maxlength' => 255, 'class' => 'formControl'])->label('Optional Name') ?>
 
-        <?= $form->field($model, 'PostedDate')->textInput(['class' => 'datePicker']) ?>
+        <?= $form->field($transactions[0], '[0]PostedDate')->textInput(['class' => 'datePicker']) ?>
 
         <div class="form-group">
             <?= Html::submitButton('Transfer', ['class' => 'btn btn-success']) ?>

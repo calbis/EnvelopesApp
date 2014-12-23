@@ -88,7 +88,7 @@ class EnvelopeSearch extends Envelope
     public function findForTransferDDL() {
         $query = Envelope::find();
         
-        $envelopes = $query->select("E.Id As Id, E.Name As Name, CONCAT(A.Name, ' - ', E.Name) As ExtName ")
+        $envelopes = $query->select(["E.Id As Id", "CONCAT(A.Name, \" - \", E.Name) As Name "])
                 ->from('envelope E')
                 ->innerJoin('account A' , 'E.AccountId = A.Id')
                 ->where([
@@ -98,6 +98,7 @@ class EnvelopeSearch extends Envelope
                     'E.IsClosed' => 0,
                     'E.IsDeleted' => 0,
                 ])
+                ->orderBy('A.Name, E.Name')
                 ->limit(150)
                 ->all();
 

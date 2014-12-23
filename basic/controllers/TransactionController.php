@@ -79,12 +79,6 @@ class TransactionController extends Controller {
         $model->EnvelopeId = $envelopeId;
         $model->CreatedBy = 1;
         $model->ModifiedBy = 1;
-        $currDate = date('Y-m-d H:i:s');
-        $model->CreatedOn = $currDate;
-        $model->ModifiedOn = $currDate;
-        $model->IsDeleted = 0;
-        $model->IsRefund = 0;
-        $model->UseInStats = 1;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index', 'envelopeId' => $model->EnvelopeId]);
@@ -165,27 +159,39 @@ class TransactionController extends Controller {
     }
 
     public function actionTransfer() {
-        $model = new Transaction();
-        $model->CreatedBy = 1;
-        $model->ModifiedBy = 1;
-        $currDate = date('Y-m-d H:i:s');
-        $model->CreatedOn = $currDate;
-        $model->ModifiedOn = $currDate;
-        $model->IsDeleted = 0;
-        $model->IsRefund = 0;
-        $model->UseInStats = 0;
+        $model1 = new Transaction();
+        $model1->CreatedBy = 1;
+        $model1->ModifiedBy = 1;
+        $model1->UseInStats = 0;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'envelopeId' => $model->EnvelopeId]);
-        } else {
-            if (Yii::$app->request->getIsAjax()) {
-                $this->layout = 'dialog';
+        $model2 = new Transaction();
+        $model2->CreatedBy = 1;
+        $model2->ModifiedBy = 1;
+        $model2->UseInStats = 0;
+
+        $transactions = array();
+        array_push($transactions, $model1, $model2);
+
+        if (Transaction::loadMultiple($transactions, Yii::$app->request->post())) {
+            $transactions[1]->Amount = $transactions[0]->Amount * -1;
+            $transactions[1]->Pending = $transactions[0]->Pending * -1;
+            $transactions[1]->Name = "TrxF " . $transactions[1]->EnvelopeId . " " . $transactions[0]->Name;
+            $transactions[1]->PostedDate = $transactions[0]->PostedDate;
+
+            $transactions[0]->Name = "TrxT " . $transactions[0]->EnvelopeId . " " . $transactions[0]->Name;
+
+            foreach ($transactions as $transaction) {
+                $transaction->save(false);
             }
 
-            return $this->render('transfer', [
-                        'model' => $model,
-            ]);
+            return $this->redirect(['index', 'envelopeId' => $transactions[0]->EnvelopeId]);
         }
+
+        if (Yii::$app->request->getIsAjax()) {
+            $this->layout = 'dialog';
+        }
+
+        return $this->render('transfer', ['transactions' => $transactions]);
     }
 
     /**
