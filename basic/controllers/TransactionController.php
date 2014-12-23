@@ -173,18 +173,26 @@ class TransactionController extends Controller {
         array_push($transactions, $model1, $model2);
 
         if (Transaction::loadMultiple($transactions, Yii::$app->request->post())) {
-            $transactions[1]->Amount = $transactions[0]->Amount * -1;
-            $transactions[1]->Pending = $transactions[0]->Pending * -1;
-            $transactions[1]->Name = "TrxF " . $transactions[1]->EnvelopeId . " " . $transactions[0]->Name;
+            $e = EnvelopeController::findModel($transactions[0]->EnvelopeId);
+            $a = AccountController::findModel($e->AccountId);
+
+            $transactions[1]->Amount = $transactions[0]->Amount;
+            $transactions[1]->Pending = $transactions[0]->Pending;
+            $transactions[1]->Name = "TrxF " . $a->Name . " - " . $e->Name . " " . $transactions[0]->Name;
             $transactions[1]->PostedDate = $transactions[0]->PostedDate;
 
-            $transactions[0]->Name = "TrxT " . $transactions[0]->EnvelopeId . " " . $transactions[0]->Name;
+            $e = EnvelopeController::findModel($transactions[1]->EnvelopeId);
+            $a = AccountController::findModel($e->AccountId);
+
+            $transactions[0]->Amount = $transactions[0]->Amount * -1;
+            $transactions[0]->Pending = $transactions[0]->Pending * -1;
+            $transactions[0]->Name = "TrxT " . $a->Name . " - " . $e->Name . " " . $transactions[0]->Name;
 
             foreach ($transactions as $transaction) {
                 $transaction->save(false);
             }
 
-            return $this->redirect(['index', 'envelopeId' => $transactions[0]->EnvelopeId]);
+            return $this->redirect(['envelope/index', 'accountId' => $a->Id]);
         }
 
         if (Yii::$app->request->getIsAjax()) {
