@@ -94,7 +94,7 @@ class TransactionController extends Controller {
             ]);
         }
     }
-    
+
     public function actionCreateForSum($accountId, $amount) {
         $account = AccountController::findModelPlus($accountId);
 
@@ -223,6 +223,39 @@ class TransactionController extends Controller {
         }
 
         return $this->render('transfer', ['transactions' => $transactions]);
+    }
+
+    public function actionAddPaycheck($accountId) {
+        $account = AccountController::findModel($accountId);
+
+        $transactions = $this->GetTransactionsForPaycheck($accountId);
+        $envelopes = EnvelopeController::GetEnvelopesPlus($accountId);
+
+        if (Transaction::loadMultiple($transactions, Yii::$app->request->post())) {
+//            foreach ($transactions as $transaction) {
+//                $transaction->save(false);
+//            }
+
+            return $this->redirect(['envelope/index', 'accountId' => $accountId]);
+        }
+
+        return $this->render('add-paycheck', ['account' => $account, 'envelopes' => $envelopes, 'transactions' => $transactions]);
+    }
+
+    private function GetTransactionsForPaycheck($accountId) {
+        $envelopes = EnvelopeController::GetEnvelopes($accountId);
+
+        $transactions = array();
+        foreach ($envelopes as $e) {
+            $t = new Transaction();
+            $t->CreatedBy = 1;
+            $t->ModifiedBy = 1;
+            $t->EnvelopeId = $e->Id;
+
+            array_push($transactions, $t);
+        }
+        
+        return $transactions;
     }
 
     /**

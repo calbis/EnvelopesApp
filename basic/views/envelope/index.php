@@ -58,14 +58,14 @@ $this->params['breadcrumbs'] = [
     <img alt="Add/Edit/Delete Accounts" title="Add/Edit/Delete Envelopes" class="imgIcons" style="text-align: right;" src="Images/pencil.png" />
 </div>
 <div style="float: right; margin-left: 40px;">
-    <a href="@Url.Action("AddPaycheck", "Transactions", new { accountId = ViewBag.Account.AccountId })">
-       <img alt="Add a Paycheck" title="Add a Paycheck" class="imgIcons" style="text-align: right;" src="Images/paycheck.jpg" /></a>
+    <?=
+    Html::a('<img alt="Add a Paycheck" title="Add a Paycheck" class="imgIcons" style="text-align: right;" src="Images/paycheck.jpg" /></a>', ['transaction/add-paycheck', 'accountId' => $account->Id], ['class' => '', 'title' => 'Add Paycheck'])
+    ?>
 </div>
 <div style="float: right; margin-left: 40px;">
     <?=
     Html::a('<img alt="Transfer Funds" title="Transfer Funds" class="imgIcons" style="text-align: right;" src="Images/transfer.png" />', ['transaction/transfer'], ['class' => 'showDialog', 'title' => 'Transfer Funds'])
     ?>
-
 </div>
 <div style="float: right; margin-left: 40px;">
     <a class="showDialog" title="Expenses Graph" href="@Url.Action("_Chart", "Envelopes", new { accountId = ViewBag.Account.AccountId })">

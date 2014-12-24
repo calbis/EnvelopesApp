@@ -6,6 +6,12 @@
     </div>
 <?php endif; ?>
 
+<?php if (isset($this->blocks['main-content-full'])): ?>
+    <div id="main-content-full">
+        <?= $this->blocks['main-content-full'] ?>
+    </div>
+<?php endif; ?>
+
 <?php if (isset($this->blocks['secondary-one'])): ?>
     <div id="secondary-one">
         <?= $this->blocks['secondary-one'] ?>

@@ -274,22 +274,6 @@ html > body tbody.scrollContent {
     width: 100%;
 }
 
-.colPostedDate {
-    width: 80px;
-}
-
-.colName {
-    width: 300px;
-}
-
-.colAmount {
-    width: 80px;
-}
-
-.colPending {
-    width: 80px;
-}
-
 .aMovePendingForTransaction {
     text-decoration: none;
     color: black;

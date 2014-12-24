@@ -48,6 +48,11 @@ AppAsset::register($this);
             </div>
             <div class="mainContainer">
                 <?= $content ?>
+                <?php if (isset($this->blocks['main-content-full'])): ?>
+                    <div id="main-content-full">
+                        <?= $this->blocks['main-content-full'] ?>
+                    </div>
+                <?php endif; ?>
                 <?php if (isset($this->blocks['main-content'])): ?>
                     <div id="main-content">
                         <?= $this->blocks['main-content'] ?>

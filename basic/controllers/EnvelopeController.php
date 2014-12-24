@@ -43,18 +43,7 @@ class EnvelopeController extends Controller {
     public function actionIndex($accountId) {
         $account = AccountController::findModelPlus($accountId);
 
-        $query = Envelope::find();
-
-        $envelopes = $query->select('Id, Name, Color')
-                ->where([
-                    'IsDeleted' => 0,
-                    'IsClosed' => 0,
-                    'AccountId' => $accountId,
-                ])
-                ->orderBy('Name')
-                ->limit(100)
-                ->joinWith('vwEnvelopeSum')
-                ->all();
+        $envelopes = $this->GetEnvelopesPlus($accountId);
         
         $at = $this->AccountTransactions($accountId);
 
@@ -64,6 +53,35 @@ class EnvelopeController extends Controller {
                     'atSearchModel' => $at['searchModel'],
                     'atDataProvider' => $at['dataProvider'],
         ]);
+    }
+    
+    public function GetEnvelopes($accountId) {
+        $query = Envelope::find();
+        
+        return $query->select('Id, Name, Color')
+                ->where([
+                    'IsDeleted' => 0,
+                    'IsClosed' => 0,
+                    'AccountId' => $accountId,
+                ])
+                ->orderBy('Name')
+                ->limit(100)
+                ->joinWith('vwEnvelopeSum')
+                ->all();
+    }
+    
+    public function GetEnvelopesPlus($accountId) {
+        $query = Envelope::find();
+        
+        return $query->select('Id, Name, Color')
+                ->where([
+                    'IsDeleted' => 0,
+                    'IsClosed' => 0,
+                    'AccountId' => $accountId,
+                ])
+                ->orderBy('Name')
+                ->limit(100)
+                ->all();
     }
     
     
