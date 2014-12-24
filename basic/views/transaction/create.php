@@ -8,10 +8,12 @@ use yii\helpers\Html;
 $this->title = 'Create Transaction';
 $this->params['breadcrumbs'] = [
     ['label' => 'Accounts', 'url' => ['account/index']],
-    ['label' => $account->Name, 'url' => ['envelope/index', 'accountId' => $envelope->AccountId]],
-    ['label' => $envelope->Name, 'url' => ['transaction/index', 'envelopeId' => $envelope->Id]],
-    ['label' => $this->title],
+    ['label' => $account->Name, 'url' => ['envelope/index', 'accountId' => $account->Id]]
 ];
+if ($envelope !== null) {
+    array_push($this->params['breadcrumbs'], ['label' => $envelope->Name, 'url' => ['transaction/index', 'envelopeId' => $envelope->Id]]);
+}
+array_push($this->params['breadcrumbs'], ['label' => $this->title]);
 ?>
 <?php $this->beginBlock('main-content'); ?>
 <div class="transaction-create">

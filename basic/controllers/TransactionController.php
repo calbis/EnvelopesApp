@@ -94,6 +94,29 @@ class TransactionController extends Controller {
             ]);
         }
     }
+    
+    public function actionCreateForSum($accountId, $amount) {
+        $account = AccountController::findModelPlus($accountId);
+
+        $model = new Transaction();
+        $model->Amount = $amount;
+        $model->CreatedBy = 1;
+        $model->ModifiedBy = 1;
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index', 'envelopeId' => $model->EnvelopeId]);
+        } else {
+            if (Yii::$app->request->getIsAjax()) {
+                $this->layout = 'dialog';
+            }
+
+            return $this->render('create', [
+                        'model' => $model,
+                        'envelope' => null,
+                        'account' => $account,
+            ]);
+        }
+    }
 
     /**
      * Updates an existing Transaction model.

@@ -29,53 +29,27 @@ $this->params['breadcrumbs'] = [
                 <td><?= $account->vwAccountSum->AccountPending ?></td>
             </tr>
             <tr style="font-weight: bold;">
-                <td>Current Account Total hdnAccountId</td>
+                <td>Current Account Total</td>
                 <td><?= $account->vwAccountSum->AccountSum + $account->vwAccountSum->AccountPending ?></td>
             </tr>
             <tr>
-                <td>From WebSite</td>
-                <td>TextBox = <?= $account->ExternalTotal ?></td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="submit" value="Calculate" /></td>
-                <td>
-                    Conditional Add Transaction button
-                    <?php
-//                    
-//                            @if (ViewBag.Account.ExternalTotal - ViewBag.Account.AmountSum != 0)
-//                            {
-//                                @(ViewBag.Account.ExternalTotal - ViewBag.Account.AmountSum)
-//                                <a class="showDialog" title="Add Transaction" href="@Url.Action("Create", "Transactions", new { accountId = ViewBag.Account.AccountId })">
-//                                    <img alt="Add Transaction" title="Add Transaction" class="imgIcons" style="text-align: right;" src="~/Images/add.png" />
-//                                </a>
-//                            }
-//                    
+                <td colspan="2">
+                    <?=
+                    $this->render('/account/_external-total', [
+                        'account' => $account,
+                    ])
                     ?>
                 </td>
             </tr>
         </tbody>
         <tfoot></tfoot>
     </table>
-    }
 </div>
 <div>
     <table>
         <thead></thead>
         <tbody>
-            <?php
-//                @foreach (EnvelopesApplication.Models.vwUserTransaction ut in (List<EnvelopesApplication.Models.vwUserTransaction>)ViewBag.PendingGroup)
-//                {
-//                    <tr>
-//                        <td>@ut.TransactionName</td>
-//                        <td>@ut.TransactionPending</td>
-//                        <td>
-//                            <a href="@Url.Action("MoveNamedPending", "Transactions", new { accountId = ut.AccountId, transactionName = ut.TransactionName })">
-//                                <img alt="Move Pending for Group" title="Move Pending for Grop" class="imgIcons" style="text-align: right;" src="~/Images/movePending.jpeg" /></a>
-//                        </td>
-//                    </tr>
-//                }
-            ?>
+
         </tbody>
         <tfoot></tfoot>
     </table>

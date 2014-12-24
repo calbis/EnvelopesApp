@@ -96,7 +96,7 @@ class AccountController extends Controller {
         $model->ModifiedOn = $currDate;
         $model->IsClosed = 0;
         $model->IsDeleted = 0;
-        
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         } else {
@@ -128,6 +128,24 @@ class AccountController extends Controller {
                         'model' => $model,
             ]);
         }
+    }
+
+    public function actionCalculate($Id, $ExternalTotal) {
+        $model = $this->findModel($Id);
+
+        $model->ModifiedBy = 1;
+        $model->ModifiedOn = date('Y-m-d H:i:s');
+        $model->ExternalTotal = $ExternalTotal;
+
+        $model->save();
+
+        return $this->redirect(['/envelope/index', 'accountId' => $Id]);
+
+//                $model = $this->findModel($id);
+//
+//        $model->load(Yii::$app->request->post()) && $model->save();
+//
+//        return $this->redirect(['/envelope/index', 'accountId' => $id]);
     }
 
     /**
@@ -166,7 +184,7 @@ class AccountController extends Controller {
                 ])
                 ->joinWith('vwAccountSum')
                 ->one();
-        
+
         return $account;
     }
 

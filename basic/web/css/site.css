@@ -294,3 +294,7 @@ html > body tbody.scrollContent {
     text-decoration: none;
     color: black;
 }
+
+.displayNone {
+    display: none;
+}
