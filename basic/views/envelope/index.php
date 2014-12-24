@@ -90,7 +90,7 @@ $this->params['breadcrumbs'] = [
             </th>
             <th class="editControls">Cost/Month
             </th>
-            <th class="editControls">Remaining
+            <th class="editControls">Remain
             </th>
         </tr>
     </thead>

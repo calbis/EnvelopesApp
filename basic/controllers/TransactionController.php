@@ -232,9 +232,12 @@ class TransactionController extends Controller {
         $envelopes = EnvelopeController::GetEnvelopesPlus($accountId);
 
         if (Transaction::loadMultiple($transactions, Yii::$app->request->post())) {
-//            foreach ($transactions as $transaction) {
-//                $transaction->save(false);
-//            }
+            foreach ($transactions as $transaction) {
+                $transaction->Name = $transactions[0]->Name;
+                $transaction->PostedDate = $transactions[0]->PostedDate;
+                
+                $transaction->save(false);
+            }
 
             return $this->redirect(['envelope/index', 'accountId' => $accountId]);
         }
