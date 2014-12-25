@@ -5,9 +5,9 @@
     });
     
     $(".gridActionsExpand").click(function () {
-        $(".gridActions").toggleClass("hiddenGridActions");
+        $(this).siblings(".gridActions").toggleClass("hiddenGridActions");
     });
-
+    
     $(".datePicker").datepicker({ dateFormat: 'yy-mm-dd' });
 
     /*Envelopes/Index*/
