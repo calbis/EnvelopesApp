@@ -66,19 +66,14 @@ class TransactionSearch extends Transaction {
         $query->andFilterWhere([
             'Id' => $this->Id,
             'EnvelopeId' => $this->EnvelopeId,
-            'PostedDate' => $this->PostedDate,
             'Amount' => $this->Amount,
             'Pending' => $this->Pending,
             'UseInStats' => $this->UseInStats,
             'IsRefund' => $this->IsRefund,
-            'CreatedOn' => $this->CreatedOn,
-            'CreatedBy' => $this->CreatedBy,
-            'ModifiedOn' => $this->ModifiedOn,
-            'ModifiedBy' => $this->ModifiedBy,
-            'IsDeleted' => $this->IsDeleted,
         ]);
 
         $query->andFilterWhere(['like', 'Name', $this->Name]);
+        $query->andFilterWhere(['like', 'PostedDate', $this->PostedDate]);
 
         return $dataProvider;
     }
