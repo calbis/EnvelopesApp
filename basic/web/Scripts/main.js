@@ -3,6 +3,10 @@
     $(".editControlSwitch").click(function () {
         $(".editControls").toggleClass("hiddenEditControls");
     });
+    
+    $(".gridActionsExpand").click(function () {
+        $(".gridActions").toggleClass("hiddenGridActions");
+    });
 
     $(".datePicker").datepicker({ dateFormat: 'yy-mm-dd' });
 
