@@ -235,8 +235,12 @@ class TransactionController extends Controller {
             foreach ($transactions as $transaction) {
                 $transaction->Name = $transactions[0]->Name;
                 $transaction->PostedDate = $transactions[0]->PostedDate;
-                
-                $transaction->save(false);
+
+                if ($transaction->Amount != 0 || $transaction->Pending != 0) {
+                    $transaction->save(false);
+                } else {
+                    $transaction->delete();
+                }
             }
 
             return $this->redirect(['envelope/index', 'accountId' => $accountId]);
@@ -257,7 +261,7 @@ class TransactionController extends Controller {
 
             array_push($transactions, $t);
         }
-        
+
         return $transactions;
     }
 
