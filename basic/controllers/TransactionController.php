@@ -155,7 +155,13 @@ class TransactionController extends Controller {
      */
     public function actionDelete($id) {
         $envelopeId = $this->findModel($id)->EnvelopeId;
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+
+        $model->IsDeleted = 1;
+        $model->ModifiedBy = 1;
+        $model->ModifiedOn = date('Y-m-d H:i:s');
+
+        $model->save();
 
         return $this->redirect(['index', 'envelopeId' => $envelopeId]);
     }
