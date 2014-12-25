@@ -77,8 +77,8 @@ $this->title = 'Transactions';
                     ['class' => '\kartik\grid\SerialColumn', 'visible' => false],
                     ['attribute' => 'PostedDate', 'width' => '90px'],
                     ['content' => function ($model) { 
-                        $icons = ($model->UseInStats === 1 ? "<span class=\"glyphicon glyphicon-signal\"></span>" : "");
-                        $icons = $icons . ($model->IsRefund === 1 ? "<span class=\"glyphicon glyphicon-certificate\"></span>" : "");
+                        $icons = ($model->UseInStats === 1 ? "<span class=\"glyphicon glyphicon-signal\"></span> " : "");
+                        $icons = $icons . ($model->IsRefund === 1 ? "<span class=\"glyphicon glyphicon-certificate\"></span> " : "");
                         return $icons . $model->Name; 
                         
                     } ],
