@@ -87,12 +87,12 @@ $this->params['breadcrumbs'] = [
                 [
                     ['class' => '\kartik\grid\SerialColumn', 'visible' => false],
                     ['attribute' => 'PostedDate', 'width' => '90px'],
-                    ['content' => function ($model) { 
-                        $icons = ($model->UseInStats === 1 ? "<span class=\"glyphicon glyphicon-signal\"></span> " : "");
-                        $icons = $icons . ($model->IsRefund === 1 ? "<span class=\"glyphicon glyphicon-certificate\"></span> " : "");
-                        return $icons . $model->Name; 
-                        
-                    } ],
+                    ['attribute' => 'Name',
+                        'content' => function ($model) {
+                            $icons = ($model->UseInStats === 1 ? "<span class=\"glyphicon glyphicon-signal\"></span> " : "");
+                            $icons = $icons . ($model->IsRefund === 1 ? "<span class=\"glyphicon glyphicon-certificate\"></span> " : "");
+                            return $icons . $model->Name;
+                        }],
                     ['attribute' => 'Amount', 'width' => '80px'],
                     ['attribute' => 'Pending', 'width' => '80px'],
 //                    ['attribute' => 'UseInStats', 'class' => '\kartik\grid\BooleanColumn'],

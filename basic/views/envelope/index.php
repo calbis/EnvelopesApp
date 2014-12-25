@@ -41,6 +41,16 @@ $this->params['breadcrumbs'] = [
                     ?>
                 </td>
             </tr>
+            <tr>
+                <td colspan="2">
+                    <?=
+                    $this->render('_pending-transactions', [
+                        'account' => $account,
+                        'transactions' => $pendingTransactions
+                    ])
+                    ?>
+                </td>
+            </tr>
         </tbody>
         <tfoot></tfoot>
     </table>

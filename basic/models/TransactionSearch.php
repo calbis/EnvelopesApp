@@ -40,17 +40,17 @@ class TransactionSearch extends Transaction {
      * @return ActiveDataProvider
      */
     public function search($params, $envelopeIds, $days) {
-        
+
         $query = Transaction::find();
-            $query->where([
-                        'IsDeleted' => 0,
-                        'EnvelopeId' => $envelopeIds,
-                    ])
-                    ->all();
-            
+        $query->where([
+                    'IsDeleted' => 0,
+                    'EnvelopeId' => $envelopeIds,
+                ])
+                ->all();
+
         if ($days !== null) {
             $date = date('Y-m-d H:i:s', strtotime("-" . $days . " days"));
-            
+
             $query->andWhere(['>=', 'PostedDate', $date]);
         }
 
@@ -78,4 +78,47 @@ class TransactionSearch extends Transaction {
         return $dataProvider;
     }
 
+    public function findByDate($accountId) {
+        $query = Transaction::find();
+
+        $query->select(['T.PostedDate As PostedDate', 'SUM(T.Pending) As Pending'])
+                ->from('transaction T')
+                ->innerJoin('envelope E', 'T.EnvelopeId = E.Id')
+                ->where([
+                    'E.IsDeleted' => 0,
+                    'E.IsClosed' => 0,
+                    'T.IsDeleted' => 0,
+                    'E.AccountId' => $accountId
+                ])
+                ->groupBy(['T.PostedDate'])
+                ->having(['>', 'COUNT(T.PostedDate)', '1'])
+                ->orderBy('T.PostedDate')
+                ->limit(20);
+
+        $query->andWhere(['!=', 'T.Pending', 0]);
+
+        return $query->all();
+    }
+
+    public function findByName($accountId) {
+        $query = Transaction::find();
+
+        $query->select(['T.Name As Name', 'SUM(T.Pending) As Pending'])
+                ->from('transaction T')
+                ->innerJoin('envelope E', 'T.EnvelopeId = E.Id')
+                ->where([
+                    'E.IsDeleted' => 0,
+                    'E.IsClosed' => 0,
+                    'T.IsDeleted' => 0,
+                    'E.AccountId' => $accountId
+                ])
+                ->groupBy('T.Name')
+                ->having(['>', 'COUNT(T.Name)', '1'])
+                ->orderBy('T.Name')
+                ->limit(20);
+
+        $query->andWhere(['!=', 'T.Pending', 0]);
+
+        return $query->all();
+    }
 }

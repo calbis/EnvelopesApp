@@ -44,47 +44,93 @@ class EnvelopeController extends Controller {
         $account = AccountController::findModelPlus($accountId);
 
         $envelopes = $this->GetEnvelopesPlus($accountId);
-        
+
         $at = $this->AccountTransactions($accountId);
+        $pt = $this->PendingTransactions($accountId);
 
         return $this->render('index', [
                     'envelopes' => $envelopes,
                     'account' => $account,
                     'atSearchModel' => $at['searchModel'],
                     'atDataProvider' => $at['dataProvider'],
+                    'pendingTransactions' => $pt
         ]);
     }
-    
+
+    public function actionBulkMovePending($accountId, $type, $value) {
+        if ($type === "date") {
+            $this->BulkMovePending("PostedDate", $value);
+        } elseif ($type === "name") {
+            $this->BulkMovePending("Name", $value);
+        }
+
+        return $this->redirect(['envelope/index', 'accountId' => $accountId]);
+    }
+
+    private function BulkMovePending($column, $value) {
+        $query = (new \yii\db\Query())
+                ->createCommand()
+                ->update('transaction', ['Amount' => 'Pending'], 'Pending!=0 And IsDeleted=0 And ' . $column . '=:' . $column)
+                ->bindParam(':' . $column, $value)
+                ->execute();
+
+//// Create a command. You can get the actual SQL using $command->sql
+//        $command = $query->createCommand();
+//
+//// Execute the command:
+//        $rows = $command->queryAll();
+//
+//        $trans = \app\models\TransactionSearch::find();
+//        $trans->createCommand("Update transaction Set Amount=Pending, Pending=NULL Where Pending != 0 And IsDeleted = 0 And $column = :$column");
+//        $trans->bindParam(":$column", $value);
+//        $trans->execute();
+    }
+
+    private function PendingTransactions($accountId) {
+        $pt = [];
+
+        $trans = TransactionSearch::findByName($accountId);
+        foreach ($trans as $t) {
+            array_push($pt, ['type' => 'name', 'value' => $t->Name, 'pending' => $t->Pending]);
+        }
+
+        $trans = TransactionSearch::findByDate($accountId);
+        foreach ($trans as $t) {
+            array_push($pt, ['type' => 'date', 'value' => $t->PostedDate, 'pending' => $t->Pending]);
+        }
+
+        return $pt;
+    }
+
     public function GetEnvelopes($accountId) {
         $query = Envelope::find();
-        
+
         return $query->select('Id, Name, Color')
-                ->where([
-                    'IsDeleted' => 0,
-                    'IsClosed' => 0,
-                    'AccountId' => $accountId,
-                ])
-                ->orderBy('Name')
-                ->limit(100)
-                ->joinWith('vwEnvelopeSum')
-                ->all();
+                        ->where([
+                            'IsDeleted' => 0,
+                            'IsClosed' => 0,
+                            'AccountId' => $accountId,
+                        ])
+                        ->orderBy('Name')
+                        ->limit(100)
+                        ->joinWith('vwEnvelopeSum')
+                        ->all();
     }
-    
+
     public function GetEnvelopesPlus($accountId) {
         $query = Envelope::find();
-        
+
         return $query->select('Id, Name, Color')
-                ->where([
-                    'IsDeleted' => 0,
-                    'IsClosed' => 0,
-                    'AccountId' => $accountId,
-                ])
-                ->orderBy('Name')
-                ->limit(100)
-                ->all();
+                        ->where([
+                            'IsDeleted' => 0,
+                            'IsClosed' => 0,
+                            'AccountId' => $accountId,
+                        ])
+                        ->orderBy('Name')
+                        ->limit(100)
+                        ->all();
     }
-    
-    
+
     protected function AccountTransactions($accountId) {
         $query = Envelope::find();
         $envelopes = $query->select('Id')
@@ -106,8 +152,8 @@ class EnvelopeController extends Controller {
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $envelopeIds, 45);
 
         return [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ];
     }
 
