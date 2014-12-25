@@ -104,4 +104,24 @@ class EnvelopeSearch extends Envelope
 
         return $envelopes;
     }
+    
+    public function GetEnvelopeIdsByAccount($accountId) {
+        $query = Envelope::find();
+        $envelopes = $query->select('Id')
+                ->where([
+                    'IsDeleted' => 0,
+                    'IsClosed' => 0,
+                    'AccountId' => $accountId,
+                ])
+                ->limit(100)
+                ->all();
+
+        $envelope = null;
+        $envelopeIds = [];
+        foreach ($envelopes as $envelope) {
+            array_push($envelopeIds, $envelope->Id);
+        }
+        
+        return $envelopeIds;
+    }
 }

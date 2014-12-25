@@ -121,4 +121,20 @@ class TransactionSearch extends Transaction {
 
         return $query->all();
     }
+
+    public function findForBulkPending($accountId, $column, $value) {
+        $envelopeIds = EnvelopeSearch::GetEnvelopeIdsByAccount($accountId);
+        $query = Transaction::find();
+
+        $query->where([
+                    'IsDeleted' => 0,
+                    'EnvelopeId' => $envelopeIds,
+                    $column => $value
+                ])
+                ->limit(20);
+
+        $query->andWhere(['!=', 'Pending', 0]);
+
+        return $query->all();
+    }
 }
