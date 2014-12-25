@@ -76,7 +76,12 @@ $this->title = 'Transactions';
                 [
                     ['class' => '\kartik\grid\SerialColumn', 'visible' => false],
                     ['attribute' => 'PostedDate', 'width' => '90px'],
-                    'Name',
+                    ['content' => function ($model) { 
+                        $icons = ($model->UseInStats === 1 ? "<span class=\"glyphicon glyphicon-signal\"></span>" : "");
+                        $icons = $icons . ($model->IsRefund === 1 ? "<span class=\"glyphicon glyphicon-certificate\"></span>" : "");
+                        return $icons . $model->Name; 
+                        
+                    } ],
                     ['attribute' => 'Amount', 'width' => '80px'],
                     ['attribute' => 'Pending', 'width' => '80px'],
 //                    ['attribute' => 'UseInStats', 'class' => '\kartik\grid\BooleanColumn'],
@@ -89,7 +94,7 @@ $this->title = 'Transactions';
                 'export' => false,
                 'bootstrap' => true,
                 'rowOptions' => function ($model, $index, $widget, $grid) {
-            return ['style' => 'color:' . $model->envelope->Color . ';'];
+            return ['class' => $model->envelope->Color . ' trStats' . $model->UseInStats . ' trRefund' . $model->IsRefund];
         }
             ]);
             ?>
