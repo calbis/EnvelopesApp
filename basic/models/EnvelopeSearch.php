@@ -10,13 +10,12 @@ use app\models\Envelope;
 /**
  * EnvelopeSearch represents the model behind the search form about `app\models\Envelope`.
  */
-class EnvelopeSearch extends Envelope
-{
+class EnvelopeSearch extends Envelope {
+
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['Id', 'AccountId', 'CalculationAmount', 'IsClosed', 'CreatedBy', 'ModifiedBy', 'IsDeleted'], 'integer'],
             [['Name', 'Color', 'CalculationType', 'CreatedOn', 'ModifiedOn'], 'safe'],
@@ -26,8 +25,7 @@ class EnvelopeSearch extends Envelope
     /**
      * @inheritdoc
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -39,8 +37,7 @@ class EnvelopeSearch extends Envelope
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
+    public function search($params) {
         $query = Envelope::find();
 
         $dataProvider = new ActiveDataProvider([
@@ -64,15 +61,15 @@ class EnvelopeSearch extends Envelope
         ]);
 
         $query->andFilterWhere(['like', 'Name', $this->Name])
-            ->andFilterWhere(['like', 'Color', $this->Color])
-            ->andFilterWhere(['like', 'CalculationType', $this->CalculationType]);
+                ->andFilterWhere(['like', 'Color', $this->Color])
+                ->andFilterWhere(['like', 'CalculationType', $this->CalculationType]);
 
         return $dataProvider;
     }
 
     public function findForDDL($accountId) {
         $query = Envelope::find();
-        
+
         $envelopes = $query->select('Id, Name')
                 ->where([
                     'IsDeleted' => 0,
@@ -87,10 +84,10 @@ class EnvelopeSearch extends Envelope
 
     public function findForTransferDDL() {
         $query = Envelope::find();
-        
+
         $envelopes = $query->select(["E.Id As Id", "CONCAT(A.Name, \" - \", E.Name) As Name "])
                 ->from('envelope E')
-                ->innerJoin('account A' , 'E.AccountId = A.Id')
+                ->innerJoin('account A', 'E.AccountId = A.Id')
                 ->where([
                     'A.IsDeleted' => 0,
                     'A.IsClosed' => 0,
@@ -104,7 +101,7 @@ class EnvelopeSearch extends Envelope
 
         return $envelopes;
     }
-    
+
     public function GetEnvelopeIdsByAccount($accountId) {
         $query = Envelope::find();
         $envelopes = $query->select('Id')
@@ -121,7 +118,14 @@ class EnvelopeSearch extends Envelope
         foreach ($envelopes as $envelope) {
             array_push($envelopeIds, $envelope->Id);
         }
-        
+
         return $envelopeIds;
     }
+
+    public function findByAccount($accountId) {
+        $query = Envelope::find();
+
+        return $query->where(['AccountId' => $accountId, 'IsDeleted' => 0])->all();
+    }
+
 }

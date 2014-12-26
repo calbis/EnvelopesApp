@@ -70,7 +70,7 @@ class EnvelopeController extends Controller {
     private function BulkMovePending($accountId, $column, $value) {
         $trans = TransactionSearch::findForBulkPending($accountId, $column, $value);
 
-        foreach ($trans as $t) {    
+        foreach ($trans as $t) {
             $t->Amount = $t->Pending;
             $t->Pending = NULL;
             $t->ModifiedOn = date('Y-m-d H:i:s');
@@ -221,10 +221,30 @@ class EnvelopeController extends Controller {
      * @return mixed
      */
     public function actionDelete($id) {
-        $accountId = $this->findModel($id)->AccountId;
-        $this->findModel($id)->delete();
+        $accountId = Envelope::findOne($id)->AccountId;
+        
+        $this->DeleteEnvelope($id);
 
         return $this->redirect(['index', 'accountId' => $accountId]);
+    }
+
+    public function DeleteEnvelope($envelopeId) {
+        $this->DeleteTransactions($envelopeId);
+
+        $model = Envelope::findOne($envelopeId);
+        $model->IsDeleted = 1;
+        $model->ModifiedBy = 1;
+        $model->ModifiedOn = date('Y-m-d H:i:s');
+
+       $model->save();
+    }
+
+    private function DeleteTransactions($envelopeId) {
+        $trans = TransactionSearch::findByEnvelope($envelopeId);
+        
+        foreach($trans as $t) {
+            TransactionController::DeleteTransaction($t->Id);
+        }
     }
 
     /**

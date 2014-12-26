@@ -146,9 +146,24 @@ class AccountController extends Controller {
      * @return mixed
      */
     public function actionDelete($id) {
-        $this->findModel($id)->delete();
+        $this->DeleteEnvelopes($id);
+
+        $model = $this->findModel($id);
+        $model->IsDeleted = 1;
+        $model->ModifiedBy = 1;
+        $model->ModifiedOn = date('Y-m-d H:i:s');
+
+        $model->save();
 
         return $this->redirect(['index']);
+    }
+
+    private function DeleteEnvelopes($accountId) {
+        $envs = EnvelopeSearch::findByAccount($accountId);
+
+        foreach ($envs as $e) {
+            EnvelopeController::DeleteEnvelope($e->Id);
+        }
     }
 
     /**

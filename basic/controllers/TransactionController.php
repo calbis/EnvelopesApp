@@ -8,7 +8,6 @@ use app\models\TransactionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\Envelope;
 
 /**
  * TransactionController implements the CRUD actions for Transaction model.
@@ -155,15 +154,20 @@ class TransactionController extends Controller {
      */
     public function actionDelete($id) {
         $envelopeId = $this->findModel($id)->EnvelopeId;
-        $model = $this->findModel($id);
+
+        $this->DeleteTransaction($id);
+
+        return $this->redirect(['index', 'envelopeId' => $envelopeId]);
+    }
+
+    public function DeleteTransaction($id) {        
+        $model = Transaction::findOne($id);
 
         $model->IsDeleted = 1;
         $model->ModifiedBy = 1;
         $model->ModifiedOn = date('Y-m-d H:i:s');
 
-        $model->save();
-
-        return $this->redirect(['index', 'envelopeId' => $envelopeId]);
+        return $model->save();
     }
 
     public function actionMovePending($id, $postBack) {
