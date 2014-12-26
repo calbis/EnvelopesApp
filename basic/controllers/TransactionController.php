@@ -124,7 +124,7 @@ class TransactionController extends Controller {
      * @return mixed
      */
     public function actionUpdate($id) {
-        $model = $this->findModel($id);
+        $model = TransactionController::findModel($id);
         $envelope = EnvelopeController::findModelPlus($model->EnvelopeId);
         $account = AccountController::findModelPlus($envelope->AccountId);
 
@@ -153,14 +153,14 @@ class TransactionController extends Controller {
      * @return mixed
      */
     public function actionDelete($id) {
-        $envelopeId = $this->findModel($id)->EnvelopeId;
+        $envelopeId = TransactionController::findModel($id)->EnvelopeId;
 
         $this->DeleteTransaction($id);
 
         return $this->redirect(['index', 'envelopeId' => $envelopeId]);
     }
 
-    public function DeleteTransaction($id) {        
+    public function DeleteTransaction($id) {
         $model = Transaction::findOne($id);
 
         $model->IsDeleted = 1;
@@ -171,7 +171,7 @@ class TransactionController extends Controller {
     }
 
     public function actionMovePending($id, $postBack) {
-        $model = $this->findModel($id);
+        $model = TransactionController::findModel($id);
 
         if ($model->Pending != 0) {
             $model->Amount = $model->Pending;

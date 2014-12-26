@@ -104,9 +104,18 @@ class AccountController extends Controller {
      * @return mixed
      */
     public function actionUpdate($id) {
-        $model = $this->findModel($id);
+        $model = AccountController::findModel($id);
+
+        $model->ModifiedBy = 1;
+        $model->ModifiedOn = date('Y-m-d H:i:s');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $modelPlus = $this->findModelPlus($id);
+            if ($modelPlus->vwAccountSum->AccountSum != 0 || $modelPlus->vwAccountSum->AccountPending != 0) {
+                $model->IsClosed = 0;
+                $model->save();
+            }
+
             return $this->redirect(['index']);
         } else {
             if (Yii::$app->request->getIsAjax()) {
@@ -119,7 +128,7 @@ class AccountController extends Controller {
     }
 
     public function actionCalculate($Id, $ExternalTotal) {
-        $model = $this->findModel($Id);
+        $model = AccountController::findModel($Id);
 
         $model->ModifiedBy = 1;
         $model->ModifiedOn = date('Y-m-d H:i:s');
@@ -128,12 +137,6 @@ class AccountController extends Controller {
         $model->save();
 
         return $this->redirect(['/envelope/index', 'accountId' => $Id]);
-
-//                $model = $this->findModel($id);
-//
-//        $model->load(Yii::$app->request->post()) && $model->save();
-//
-//        return $this->redirect(['/envelope/index', 'accountId' => $id]);
     }
 
     /**
@@ -143,14 +146,17 @@ class AccountController extends Controller {
      * @return mixed
      */
     public function actionDelete($id) {
-        $this->DeleteEnvelopes($id);
+        $modelPlus = AccountController::findModelPlus($id);
+        if ($modelPlus->vwAccountSum->AccountSum == 0 && $modelPlus->vwAccountSum->AccountPending == 0) {
+            $this->DeleteEnvelopes($id);
 
-        $model = $this->findModel($id);
-        $model->IsDeleted = 1;
-        $model->ModifiedBy = 1;
-        $model->ModifiedOn = date('Y-m-d H:i:s');
+            $model = $this->findModel($id);
+            $model->IsDeleted = 1;
+            $model->ModifiedBy = 1;
+            $model->ModifiedOn = date('Y-m-d H:i:s');
 
-        $model->save();
+            $model->save();
+        }
 
         return $this->redirect(['index']);
     }

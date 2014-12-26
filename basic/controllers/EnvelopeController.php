@@ -143,7 +143,7 @@ class EnvelopeController extends Controller {
      * @return mixed
      */
     public function actionView($id) {
-        $model = $this->findModel($id);
+        $model = EnvelopeController::findModel($id);
         $account = AccountController::findModel($model->AccountId);
 
         if (Yii::$app->request->getIsAjax()) {
@@ -162,7 +162,6 @@ class EnvelopeController extends Controller {
      * @return mixed
      */
     public function actionCreate($accountId) {
-
         $model = new Envelope();
         $model->AccountId = $accountId;
         $model->CreatedBy = 1;
@@ -196,9 +195,18 @@ class EnvelopeController extends Controller {
      * @return mixed
      */
     public function actionUpdate($id) {
-        $model = $this->findModel($id);
+        $model = EnvelopeController::findModel($id);
+
+        $model->ModifiedBy = 1;
+        $model->ModifiedOn = date('Y-m-d H:i:s');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $modelPlus = $this->findModelPlus($id);
+            if ($modelPlus->vwEnvelopeSum->EnvelopeSum != 0 || $modelPlus->vwEnvelopeSum->EnvelopePending != 0) {
+                $model->IsClosed = 0;
+                $model->save();
+            }
+
             return $this->redirect(['index', 'accountId' => $model->AccountId]);
         } else {
             $account = AccountController::findModel($model->AccountId);
@@ -221,11 +229,13 @@ class EnvelopeController extends Controller {
      * @return mixed
      */
     public function actionDelete($id) {
-        $accountId = Envelope::findOne($id)->AccountId;
-        
-        $this->DeleteEnvelope($id);
+        $modelPlus = EnvelopeController::findModelPlus($id);
 
-        return $this->redirect(['index', 'accountId' => $accountId]);
+        if ($modelPlus->vwEnvelopeSum->EnvelopeSum == 0 && $modelPlus->vwEnvelopeSum->EnvelopePending == 0) {
+            $this->DeleteEnvelope($id);
+        }
+
+        return $this->redirect(['index', 'accountId' => $modelPlus->AccountId]);
     }
 
     public function DeleteEnvelope($envelopeId) {
@@ -236,13 +246,13 @@ class EnvelopeController extends Controller {
         $model->ModifiedBy = 1;
         $model->ModifiedOn = date('Y-m-d H:i:s');
 
-       $model->save();
+        $model->save();
     }
 
     private function DeleteTransactions($envelopeId) {
         $trans = TransactionSearch::findByEnvelope($envelopeId);
-        
-        foreach($trans as $t) {
+
+        foreach ($trans as $t) {
             TransactionController::DeleteTransaction($t->Id);
         }
     }
