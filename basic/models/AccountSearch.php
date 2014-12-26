@@ -78,6 +78,7 @@ class AccountSearch extends Account
                     'IsDeleted' => 0,
                     'IsClosed' => 0,
                 ])
+                ->orderBy('Name')
                 ->limit(100)
                 ->all();
 

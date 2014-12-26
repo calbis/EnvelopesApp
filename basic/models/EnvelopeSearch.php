@@ -76,6 +76,7 @@ class EnvelopeSearch extends Envelope {
                     'IsClosed' => 0,
                     'AccountId' => $accountId,
                 ])
+                ->orderBy('Name')
                 ->limit(100)
                 ->all();
 
