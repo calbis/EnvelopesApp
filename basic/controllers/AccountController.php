@@ -4,12 +4,10 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Account;
-//use app\models\AccountSearch;
 use yii\data\Pagination;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\helpers\BaseVarDumper;
 
 /**
  * AccountController implements the CRUD actions for Account model.
@@ -51,7 +49,6 @@ class AccountController extends Controller {
                 ->limit($pagination->limit)
                 ->joinWith('vwAccountSum')
                 ->all();
-//        BaseVarDumper::dump($accounts);
 
         return $this->render('index', [
                     'accounts' => $accounts,
@@ -159,7 +156,7 @@ class AccountController extends Controller {
     }
 
     private function DeleteEnvelopes($accountId) {
-        $envs = EnvelopeSearch::findByAccount($accountId);
+        $envs = \app\models\EnvelopeSearch::findByAccount($accountId);
 
         foreach ($envs as $e) {
             EnvelopeController::DeleteEnvelope($e->Id);
