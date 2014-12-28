@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use app\models\AccountSearch;
+use app\models\ColorSearch;
 use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
@@ -20,7 +21,9 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'Name')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'Color')->textInput(['maxlength' => 100]) ?>
+    <?=
+    Html::activeDropDownList($model, 'Color', ArrayHelper::map(ColorSearch::findForDDL(), 'Id', 'Name'))
+    ?>
 
     <?= $form->field($model, 'CalculationType')->dropDownList(['var' => 'Variable', 'fix' => 'Fixed']) ?>
 

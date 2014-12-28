@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\ColorSearch;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Account */
@@ -14,7 +16,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Name')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'Color')->textInput(['maxlength' => 100]) ?>
+    <?=
+    Html::activeDropDownList($model, 'Color', ArrayHelper::map(ColorSearch::findForDDL(), 'Id', 'Name'))
+    ?>
 
     <?= $form->field($model, 'IsCash')->checkBox() ?>
 
