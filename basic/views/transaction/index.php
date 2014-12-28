@@ -14,10 +14,15 @@ $this->params['breadcrumbs'] = [
     ['label' => $envelope->Name],
 ];
 ?>
+
+<?php $this->beginBlock('main-content-full'); ?>
+<div id="divFilterTransactions" style="width: 200px; text-align: center; margin: 5px auto 5px auto;">Filter Transactions</div>
+<div id="divSearchContainer" style="display: none;">
+    <?php echo $this->render('_search', ['model' => $searchModel, 'account' => $account]); ?>
+</div>
+<?php $this->endBlock(); ?>
 <?php $this->beginBlock('main-content'); ?>
 <div class="transaction-index">
-    <?php //echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <p>
         <?= Html::a('Create Transaction', ['create', 'envelopeId' => $envelope->Id], ['class' => 'btn btn-success showDialog', 'title' => 'Create Transaction']) ?>
     </p>

@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\EnvelopeSearch;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\TransactionSearch */
@@ -15,9 +17,9 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'Id') ?>
+    <?php //$form->field($model, 'Id') ?>
 
-    <?= $form->field($model, 'EnvelopeId') ?>
+    <?= $form->field($model, 'EnvelopeId[]')->checkboxList(ArrayHelper::map(EnvelopeSearch::findForDDL($account->Id), 'Id', 'Name')); ?>
 
     <?= $form->field($model, 'Name') ?>
 
@@ -25,11 +27,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Amount') ?>
 
-    <?php // echo $form->field($model, 'Pending') ?>
+    <?php echo $form->field($model, 'Pending') ?>
 
-    <?php // echo $form->field($model, 'UseInStats') ?>
+    <?php echo $form->field($model, 'UseInStats')->checkbox() ?>
 
-    <?php // echo $form->field($model, 'IsRefund') ?>
+    <?php echo $form->field($model, 'IsRefund')->checkbox() ?>
 
     <?php // echo $form->field($model, 'CreatedOn') ?>
 
