@@ -26,7 +26,7 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'CalculationAmount')->textInput() ?>
 
-    <?= $form->field($model, 'IsClosed')->textInput() ?>
+    <?= $form->field($model, 'IsClosed')->checkBox() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

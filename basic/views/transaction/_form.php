@@ -26,9 +26,9 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'Pending')->textInput(['maxlength' => 19, 'class' => 'formControl']) ?>
 
-    <?= $form->field($model, 'UseInStats')->textInput(['class' => 'formControl']) ?>
+    <?= $form->field($model, 'UseInStats')->checkBox(['class' => 'formControl']) ?>
 
-    <?= $form->field($model, 'IsRefund')->textInput(['class' => 'formControl']) ?>
+    <?= $form->field($model, 'IsRefund')->checkBox(['class' => 'formControl']) ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

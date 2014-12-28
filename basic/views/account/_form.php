@@ -16,9 +16,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Color')->textInput(['maxlength' => 100]) ?>
 
-    <?= $form->field($model, 'IsCash')->textInput() ?>
+    <?= $form->field($model, 'IsCash')->checkBox() ?>
 
-    <?= $form->field($model, 'IsClosed')->textInput() ?>
+    <?= $form->field($model, 'IsClosed')->checkBox() ?>
 
     <?= $form->field($model, 'ExternalTotal')->textInput(['maxlength' => 19]) ?>
 
