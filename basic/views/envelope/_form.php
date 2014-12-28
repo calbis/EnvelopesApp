@@ -22,7 +22,7 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'Color')->textInput(['maxlength' => 100]) ?>
 
-    <?= $form->field($model, 'CalculationType')->textInput(['maxlength' => 3]) ?>
+    <?= $form->field($model, 'CalculationType')->dropDownList(['var' => 'Variable', 'fix' => 'Fixed']) ?>
 
     <?= $form->field($model, 'CalculationAmount')->textInput() ?>
 
