@@ -80,7 +80,7 @@ class TransactionController extends Controller {
         $model->ModifiedBy = 1;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'envelopeId' => $model->EnvelopeId]);
+            return $this->redirect(['envelope/index', 'accountId' => $envelope->AccountId]);
         } else {
             if (Yii::$app->request->getIsAjax()) {
                 $this->layout = 'dialog';
@@ -103,7 +103,7 @@ class TransactionController extends Controller {
         $model->ModifiedBy = 1;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'envelopeId' => $model->EnvelopeId]);
+            return $this->redirect(['envelope/index', 'accountId' => $accountId]);
         } else {
             if (Yii::$app->request->getIsAjax()) {
                 $this->layout = 'dialog';
@@ -132,7 +132,7 @@ class TransactionController extends Controller {
         $model->ModifiedOn = date('Y-m-d H:i:s');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'envelopeId' => $model->EnvelopeId]);
+            return $this->redirect(['envelope/index', 'accountId' => $envelope->AccountId]);
         } else {
             if (Yii::$app->request->getIsAjax()) {
                 $this->layout = 'dialog';
@@ -154,10 +154,11 @@ class TransactionController extends Controller {
      */
     public function actionDelete($id) {
         $envelopeId = TransactionController::findModel($id)->EnvelopeId;
+        $envelope = EnvelopeController::findModel($envelopeId);
 
         $this->DeleteTransaction($id);
 
-        return $this->redirect(['index', 'envelopeId' => $envelopeId]);
+        return $this->redirect(['envelope/index', 'accountId' => $envelope->AccountId]);
     }
 
     public function DeleteTransaction($id) {
