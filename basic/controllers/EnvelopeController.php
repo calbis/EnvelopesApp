@@ -122,6 +122,7 @@ class EnvelopeController extends Controller {
                         ])
                         ->orderBy('Name')
                         ->limit(100)
+                        ->joinWith('vwEnvelopeSum')
                         ->all();
     }
 
@@ -129,7 +130,7 @@ class EnvelopeController extends Controller {
         $envelopeIds = EnvelopeSearch::GetEnvelopeIdsByAccount($accountId);
 
         $searchModel = new TransactionSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $envelopeIds, 45);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $envelopeIds, null);
 
         return [
             'searchModel' => $searchModel,
