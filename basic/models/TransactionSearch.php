@@ -43,9 +43,10 @@ class TransactionSearch extends Transaction {
 
         $query = Transaction::find();
         $query->where([
-                    'IsDeleted' => 0,
+                    'transaction.IsDeleted' => 0,
                     'EnvelopeId' => $envelopeIds,
                 ])
+                ->joinWith('envelope')
                 ->all();
 
         if ($days !== null) {
@@ -137,12 +138,13 @@ class TransactionSearch extends Transaction {
 
         return $query->all();
     }
-    
+
     public function findByEnvelope($envelopeId) {
         $query = Transaction::find();
-        
+
         $query->where(['EnvelopeId' => $envelopeId, 'IsDeleted' => 0]);
 
         return $query->all();
     }
+
 }
