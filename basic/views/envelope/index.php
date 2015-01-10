@@ -108,10 +108,10 @@ $this->params['breadcrumbs'] = [
         <?php foreach ($envelopes as $envelope): ?>
             <tr>
                 <td class="editControls hiddenEditControls">                
-                    <?= Html::a('Edit', ['update', 'id' => $envelope->Id], ['class' => 'showDialog', 'title' => 'Edit Envelope']) ?>
-                    <?= Html::a('Details', ['view', 'id' => $envelope->Id], ['class' => 'showDialog', 'title' => 'View Envelope']) ?>
+                    <?= Html::a('Edit', ['update', 'id' => $envelope['Id']], ['class' => 'showDialog', 'title' => 'Edit Envelope']) ?>
+                    <?= Html::a('Details', ['view', 'id' => $envelope['Id']], ['class' => 'showDialog', 'title' => 'View Envelope']) ?>
                     <?=
-                    Html::a('Delete', ['delete', 'id' => $envelope->Id], [
+                    Html::a('Delete', ['delete', 'id' => $envelope['Id']], [
                         'class' => 'linkConfirm',
                         'data' => [
                             'confirm' => 'Are you sure you want to delete this item?',
@@ -120,21 +120,21 @@ $this->params['breadcrumbs'] = [
                     ])
                     ?>                
                 </td>
-                <td class="<?= $envelope->Color ?> tdNonWrap">
-                    <?= Html::a('<img alt="Create Transaction" title="Create Transaction" class="imgIcons" style="text-align: right;" src="Images/add.png" />', ['transaction/create', 'envelopeId' => $envelope->Id], ['class' => 'showDialog', 'title' => 'Create Transaction']) ?>    
-                    <?= Html::a($envelope->Name, ['transaction/index', 'envelopeId' => $envelope->Id], ['class' => $envelope->Color, 'title' => $envelope->Name]) ?>
+                <td class="<?= $envelope['Color'] ?> tdNonWrap">
+                    <?= Html::a('<img alt="Create Transaction" title="Create Transaction" class="imgIcons" style="text-align: right;" src="Images/add.png" />', ['transaction/create', 'envelopeId' => $envelope['Id']], ['class' => 'showDialog', 'title' => 'Create Transaction']) ?>    
+                    <?= Html::a($envelope['Name'], ['transaction/index', 'envelopeId' => $envelope['Id']], ['class' => $envelope['Color'], 'title' => $envelope['Name']]) ?>
                 </td>
                 <td class="editControls">
-                    <?= ($envelope->vwEnvelopeSum !== null ? $envelope->vwEnvelopeSum->EnvelopeSum : '0.00') ?>
+                    <?= ($envelope['EnvelopeSum'] !== null ? $envelope['EnvelopeSum'] : '0.00') ?>
                 </td>
                 <td class="editControls">
-                    <?= ($envelope->vwEnvelopeSum !== null ? $envelope->vwEnvelopeSum->EnvelopePending : '0.00') ?>
+                    <?= ($envelope['EnvelopePending'] !== null ? $envelope['EnvelopePending'] : '0.00') ?>
                 </td>
                 <td class="editControls">
-                    <?= ($envelope->vwEnvelopeSum !== null ? $envelope->vwEnvelopeSum->StatsCost : '0.00') ?>
+                    <?= ($envelope['StatsCost'] !== null ? $envelope['StatsCost'] : '0.00') ?>
                 </td>
                 <td class="editControls">
-                    <?= ($envelope->vwEnvelopeSum !== null ? $envelope->vwEnvelopeSum->TimeLeft : '0.00') ?>
+                    <?= ($envelope['TimeLeft'] !== null ? $envelope['TimeLeft'] : '0.00') ?>
                 </td>
             </tr>
         <?php endforeach; ?>
