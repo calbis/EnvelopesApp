@@ -45,6 +45,8 @@ class EnvelopeController extends Controller {
 
         $envelopes = $this->GetEnvelopesPlus($accountId);
 
+        //\yii\helpers\VarDumper::dump($envelopes);
+        
         $at = $this->AccountTransactions($accountId);
         $pt = $this->PendingTransactions($accountId);
 
@@ -112,9 +114,10 @@ class EnvelopeController extends Controller {
     }
 
     public function GetEnvelopesPlus($accountId) {
-        $query = Envelope::find();
+        $query = (new \yii\db\Query());
 
-        return $query->select('Id, Name, Color')
+        return $query->select('Id, Name, Color, EnvelopeSum, EnvelopePending, StatsCost, TimeLeft, GoalDeposit')
+                        ->from('envelope E')
                         ->where([
                             'IsDeleted' => 0,
                             'IsClosed' => 0,
@@ -122,7 +125,7 @@ class EnvelopeController extends Controller {
                         ])
                         ->orderBy('Name')
                         ->limit(100)
-                        ->joinWith('vwEnvelopeSum')
+                        ->leftJoin('vw_envelope_sum ES', 'E.Id = ES.EnvelopeId')
                         ->all();
     }
 
