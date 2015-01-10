@@ -38,18 +38,31 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
-/*        'gii' => [
-            'class' => 'yii\gii\Module',
-            'allowedIPs' => ['127.0.0.1', '::1', '192.168.0.*']
-        ],
-*/    ],
+    /*        'gii' => [
+      'class' => 'yii\gii\Module',
+      'allowedIPs' => ['127.0.0.1', '::1', '192.168.0.*']
+      ],
+     */    ],
+    'modules' => [
+        'gridview' => [
+            'class' => '\kartik\grid\Module'
+        // enter optional module parameters below - only if you need to  
+        // use your own export download action or custom translation 
+        // message source
+        // 'downloadAction' => 'gridview/export/download',
+        // 'i18n' => []
+        ]
+    ],
     'params' => $params,
 ];
 
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
 //    $config['bootstrap'][] = 'debug';
-//    $config['modules']['debug'] = 'yii\debug\Module';
+//    $config['modules']['debug'] = [
+//        'class' => 'yii\debug\Module',
+//        'allowedIPs' => ['192.168.0.108', '127.0.0.1', '::1']
+//    ];
 
 //    $config['bootstrap'][] = 'gii';
 //    $config['modules']['gii'] = 'yii\gii\Module';
