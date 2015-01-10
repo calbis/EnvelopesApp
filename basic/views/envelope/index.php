@@ -22,7 +22,7 @@ $this->params['breadcrumbs'] = [
         <tbody>
             <tr>
                 <td>Account Grand Total</td>
-                <td><?= $account->vwAccountSum->AccountSum ?></td>
+                <td><?= $account->vwAccountSum->AccountSum + $account->vwAccountSum->AccountPending ?></td>
             </tr>
             <tr>
                 <td>Account Pending</td>
@@ -30,7 +30,7 @@ $this->params['breadcrumbs'] = [
             </tr>
             <tr style="font-weight: bold;">
                 <td>Current Account Total</td>
-                <td><?= $account->vwAccountSum->AccountSum + $account->vwAccountSum->AccountPending ?></td>
+                <td><?= $account->vwAccountSum->AccountSum ?></td>
             </tr>
             <tr>
                 <td colspan="2">
