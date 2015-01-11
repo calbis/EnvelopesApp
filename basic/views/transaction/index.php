@@ -109,8 +109,7 @@ $this->params['breadcrumbs'] = [
                     ['attribute' => 'Pending', 'width' => '80px',
                         'content' => function ($model) { 
                             if($model->Pending !== null && $model->Pending != 0) {
-                                $url = $model->Pending;
-                                return $url;
+                                return Html::a($model->Pending, ['transaction/move-pending', 'id' => $model->Id, 'postBack' => 'envelope'], ['class' => 'showDialog ' . $model->envelope->Color, 'title' => 'Transfer Funds']);
                             }
                             return "";
                         }],

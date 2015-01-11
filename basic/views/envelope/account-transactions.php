@@ -83,33 +83,32 @@ $this->title = 'Transactions';
                             return $icons . $model->Name;
                         }],
                     ['attribute' => 'Amount', 'width' => '80px',
-                        'content' => function ($model) { 
-                            if($model->Amount !== null && $model->Amount != 0) {
+                        'content' => function ($model) {
+                            if ($model->Amount !== null && $model->Amount != 0) {
                                 $url = $model->Amount;
                                 return $url;
                             }
                             return "";
                         }],
                     ['attribute' => 'Pending', 'width' => '80px',
-                        'content' => function ($model) { 
-                            if($model->Pending !== null && $model->Pending != 0) {
-                                $url = $model->Pending;
-                                return $url;
+                        'content' => function ($model) {
+                            if ($model->Pending !== null && $model->Pending != 0) {
+                                return Html::a($model->Pending, ['transaction/move-pending', 'id' => $model->Id, 'postBack' => 'envelope'], ['class' => 'showDialog ' . $model->envelope->Color, 'title' => 'Transfer Funds']);
                             }
                             return "";
                         }],
 //                    ['attribute' => 'UseInStats', 'class' => '\kartik\grid\BooleanColumn'],
 //                    ['attribute' => 'IsRefund', 'class' => '\kartik\grid\BooleanColumn'],
-                    $actionCol,
-                ],
-                'responsive' => true,
-                'hover' => true,
-                'condensed' => true,
-                'export' => false,
-                'bootstrap' => true,
-                'rowOptions' => function ($model, $index, $widget, $grid) {
-            return ['class' => $model->envelope->Color . ' trStats' . $model->UseInStats . ' trRefund' . $model->IsRefund];
-        }
-            ]);
-            ?>
+                            $actionCol,
+                        ],
+                        'responsive' => true,
+                        'hover' => true,
+                        'condensed' => true,
+                        'export' => false,
+                        'bootstrap' => true,
+                        'rowOptions' => function ($model, $index, $widget, $grid) {
+                    return ['class' => $model->envelope->Color . ' trStats' . $model->UseInStats . ' trRefund' . $model->IsRefund];
+                }
+                    ]);
+                    ?>
 </div>
