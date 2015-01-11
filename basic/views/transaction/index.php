@@ -98,8 +98,22 @@ $this->params['breadcrumbs'] = [
                             $icons = $icons . ($model->IsRefund === 1 ? "<span class=\"glyphicon glyphicon-certificate\"></span> " : "");
                             return $icons . $model->Name;
                         }],
-                    ['attribute' => 'Amount', 'width' => '80px'],
-                    ['attribute' => 'Pending', 'width' => '80px'],
+                    ['attribute' => 'Amount', 'width' => '80px',
+                        'content' => function ($model) { 
+                            if($model->Amount !== null && $model->Amount != 0) {
+                                $url = $model->Amount;
+                                return $url;
+                            }
+                            return "";
+                        }],
+                    ['attribute' => 'Pending', 'width' => '80px',
+                        'content' => function ($model) { 
+                            if($model->Pending !== null && $model->Pending != 0) {
+                                $url = $model->Pending;
+                                return $url;
+                            }
+                            return "";
+                        }],
 //                    ['attribute' => 'UseInStats', 'class' => '\kartik\grid\BooleanColumn'],
 //                    ['attribute' => 'IsRefund', 'class' => '\kartik\grid\BooleanColumn'],
                     $actionCol,
