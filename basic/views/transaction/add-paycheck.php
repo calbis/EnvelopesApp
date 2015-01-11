@@ -47,23 +47,23 @@ $this->params['breadcrumbs'] = [
             <tbody>
                 <?php foreach ($transactions as $key => $t): ?>
                     <tr>
-                        <td style="color: <?= $envelopes[$key]->Color ?>">
-                            <span style="color: <?= $envelopes[$key]->Color ?>"><?= $envelopes[$key]->Name ?></span>
+                        <td style="color: <?= $envelopes[$key]['Color'] ?>">
+                            <span style="color: <?= $envelopes[$key]['Color'] ?>"><?= $envelopes[$key]['Name'] ?></span>
                         </td>
                         <td>
-                            <?= $envelopes[$key]->vwEnvelopeSum->EnvelopeSum ?>
+                            <?= $envelopes[$key]['EnvelopeSum'] ?>
                         </td>
                         <td>
-                            <?= $envelopes[$key]->vwEnvelopeSum->EnvelopePending ?>
+                            <?= $envelopes[$key]['EnvelopePending'] ?>
                         </td>
                         <td>
-                            <?= $envelopes[$key]->vwEnvelopeSum->StatsCost ?>
+                            <?= $envelopes[$key]['StatsCost'] ?>
                         </td>
                         <td>
-                            <?= $envelopes[$key]->vwEnvelopeSum->TimeLeft ?>
+                            <?= $envelopes[$key]['TimeLeft'] ?>
                         </td>
                         <td>
-                            <?= $envelopes[$key]->vwEnvelopeSum->GoalDeposit ?>
+                            <?= $envelopes[$key]['GoalDeposit'] ?>
                         </td>
                         <td>
                             <?= $form->field($t, "[$key]Amount", ['options' => ['class' => ''], 'errorOptions' => ['class' => 'displayNone']])->textInput(['maxlength' => 19, 'style' => 'width: 80px;', 'class' => 'txtAddPaycheckAmount'])->label('', ['class' => 'displayNone']) ?>
