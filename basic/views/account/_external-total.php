@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
     <div style="text-align: left; float: left;">
         <?= Html::submitButton('Calculate', ['class' => '']) ?>         
         <?php
-        $sum = $account->vwAccountSum->AccountSum - $account->ExternalTotal;
+        $sum = number_format($account->ExternalTotal - $account->vwAccountSum->AccountSum, 2, ".", ",");
         ?>
     </div>
     <div style="text-align: right; float: right;">
