@@ -65,10 +65,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= Html::a($account->Name, ['envelope/index', 'accountId' => $account->Id], ['class' => $account->Color, 'title' => $account->Name]) ?>
             </td>
             <td class="editControls">
-                <?= ($account->vwAccountSum !== null ? $account->vwAccountSum->AccountSum : '0.00') ?>
+                <?= number_format(($account->vwAccountSum !== null ? $account->vwAccountSum->AccountSum : '0.00'), 2, ".", ",") ?>
             </td>
             <td class="editControls">
-                <?= ($account->vwAccountSum !== null ? $account->vwAccountSum->AccountPending : '0.00') ?>
+                <?= number_format(($account->vwAccountSum !== null ? $account->vwAccountSum->AccountPending : '0.00'), 2, ".", ",") ?>
             </td>
         </tr>
         <?php 
@@ -89,15 +89,15 @@ $this->params['breadcrumbs'][] = $this->title;
         <tbody>
             <tr>
                 <td>Total Amount</td>
-                <td><?= $sum ?></td>
+                <td><?= number_format($sum, 2, ".", ",") ?></td>
             </tr>
             <tr>
                 <td>Total Pending</td>
-                <td><?= $pending ?></td>
+                <td><?= number_format($pending, 2, ".", ",") ?></td>
             </tr>
             <tr>
                 <td>Grand Total</td>
-                <td><?= $sum + $pending ?></td>
+                <td><?= number_format($sum + $pending, 2, ".", ",") ?></td>
             </tr>
         </tbody>
         <tfoot>
