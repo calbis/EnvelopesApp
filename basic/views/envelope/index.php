@@ -22,15 +22,15 @@ $this->params['breadcrumbs'] = [
         <tbody>
             <tr>
                 <td>Account Grand Total</td>
-                <td><?= $account->vwAccountSum->AccountSum + $account->vwAccountSum->AccountPending ?></td>
+                <td><?= number_format($account->vwAccountSum->AccountSum + $account->vwAccountSum->AccountPending, 2, ".", ",") ?></td>
             </tr>
             <tr>
                 <td>Account Pending</td>
-                <td><?= $account->vwAccountSum->AccountPending ?></td>
+                <td><?= number_format($account->vwAccountSum->AccountPending, 2, ".", ",") ?></td>
             </tr>
             <tr style="font-weight: bold;">
                 <td>Current Account Total</td>
-                <td><?= $account->vwAccountSum->AccountSum ?></td>
+                <td><?= number_format($account->vwAccountSum->AccountSum, 2, ".", ",") ?></td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -88,7 +88,7 @@ $this->params['breadcrumbs'] = [
 <p class="editControls hiddenEditControls">
     <?= Html::a('Create Envelope', ['create', 'accountId' => $account->Id], ['class' => 'btn btn-success showDialog', 'title' => 'Create Envelope']) ?>
 </p>
-<table style="font-size: larger;">
+<table style="font-size: large;">
     <thead>
         <tr>
             <th class="editControls hiddenEditControls"></th>
@@ -125,10 +125,10 @@ $this->params['breadcrumbs'] = [
                     <?= Html::a($envelope['Name'], ['transaction/index', 'envelopeId' => $envelope['Id']], ['class' => $envelope['Color'], 'title' => $envelope['Name']]) ?>
                 </td>
                 <td class="editControls">
-                    <?= ($envelope['EnvelopeSum'] !== null ? $envelope['EnvelopeSum'] : '0.00') ?>
+                    <?= number_format(($envelope['EnvelopeSum'] !== null ? $envelope['EnvelopeSum'] : '0.00'), 2, ".", ",") ?>
                 </td>
                 <td class="editControls">
-                    <?= ($envelope['EnvelopePending'] !== null ? $envelope['EnvelopePending'] : '0.00') ?>
+                    <?= number_format(($envelope['EnvelopePending'] !== null ? $envelope['EnvelopePending'] : '0.00'), 2, ".", ",") ?>
                 </td>
                 <td class="editControls">
                     <?= ($envelope['StatsCost'] !== null ? $envelope['StatsCost'] : '0.00') ?>
