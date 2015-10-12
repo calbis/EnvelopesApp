@@ -5,20 +5,14 @@ Delimiter $$
 Create Function fn_calculate_envelope_stats_length
 (
 	envelopeId int
+	, statsCostAmount decimal(19, 2)
 )
 Returns Decimal(19, 2)
 Begin
-    Select StatsLength
-    Into @length
-    From `user`
-    Where Id = 1
-    Limit 1;
 
-    Select DATE_ADD(CURDATE(), INTERVAL @length * -1 MONTH) Into @date;
+    Select DATE_ADD(CURDATE(), INTERVAL -3 MONTH) Into @date;
 
-    Select fn_calculate_envelope_stats_cost(envelopeId) Into @statsCost;
-
-    Select Case When @statsCost = 0 Then
+    Select Case When statsCostAmount = 0 Then
         0.00
     Else
     (
@@ -26,7 +20,7 @@ Begin
             IFNULL
             (
                 (
-                    Select (Sum(T.Amount) + Sum(T.Pending)) / @statsCost
+                    Select (Sum(T.Amount) + Sum(T.Pending)) / statsCostAmount
                 )
             , 0.00)
         From `envelope` E

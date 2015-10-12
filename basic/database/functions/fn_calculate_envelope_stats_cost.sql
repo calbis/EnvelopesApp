@@ -25,10 +25,10 @@ BEGIN
             Then E.CalculationAmount 
             Else
             (
-                Select (IFNULL(Sum(T.Amount), 0.00) + IFNULL(Sum(T.Pending), 0.00)) / @length * -1
+                Select (IFNULL(Sum(T.Amount), 0.00) + IFNULL(Sum(T.Pending), 0.00)) / 3 * -1
                 From `transaction` T
                 Where T.EnvelopeId = E.Id
-                    And T.PostedDate > @date
+                    And T.PostedDate > DATE_ADD(CURDATE(), INTERVAL -3 MONTH)
                     And T.UseInStats = 1
                     And T.IsDeleted = 0
                     And 

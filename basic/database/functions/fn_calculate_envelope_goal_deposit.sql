@@ -6,18 +6,15 @@ Delimiter $$
 CREATE FUNCTION fn_calculate_envelope_goal_deposit
 (
 	envelopeId int
+  , statsCostAmount Decimal(19, 2)
 )
 RETURNS Decimal(19, 2)
 BEGIN
-    Select U.GoalLength
-    Into @goal
-    From `user` U
-    Where U.Id = 1;
 	
     Select IFNULL
     (
         (
-                Select (@goal * (fn_calculate_envelope_stats_cost(envelopeId)) - SUM(T.Amount) - Sum(T.Pending))
+                Select (1 * statsCostAmount - SUM(T.Amount) - Sum(T.Pending))
         )
     , 0.0)
     Into @retVal
